@@ -1,5 +1,11 @@
+import { Test } from "./components/Test";
+
 const App = () => {
-  return <></>;
+  return (
+    <>
+      <Test />
+    </>
+  );
 };
 
 export default App;

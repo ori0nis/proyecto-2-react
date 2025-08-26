@@ -1,0 +1,1 @@
+Book recommendation: randomly select one book from provided query, calculate length of result array and Math.random from it
