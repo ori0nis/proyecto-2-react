@@ -1,7 +1,8 @@
-//? El servicio de axios se encarga de hacer las requests a la API y mapear la respuesta al tipo Book, para que useFetch pueda pasarla por el filtro y servirla a los componentes
+//? El servicio de axios hace las requests a la API y mapea la respuesta
 
 import axios from "axios";
-import type { Book, OpenLibraryDoc } from "../../models/book";
+import type { BookFromTitleSearch, OpenLibraryDoc } from "../../models/book";
+import { mapDocsToBooks } from "../../utils";
 
 /* interface SearchParams {
   title: string;
@@ -10,29 +11,33 @@ import type { Book, OpenLibraryDoc } from "../../models/book";
   language?: string;
 } */
 
-// GET BY TITLE
-export const getBooksByTitle = async (title: string): Promise<Book[]> => {
+// GET BOOKS BY TITLE
+export const getBooksByTitle = async (title: string): Promise<BookFromTitleSearch[]> => {
   // Encodeamos para que la query sea del formato adecuado
   const query = encodeURIComponent(title);
-
   const res = await axios.get(`https://openlibrary.org/search.json?title=${query}`);
-  console.log(res.data);
 
-  // Transformamos de OpenLibraryDoc a Book
-  return res.data.docs.map((doc: OpenLibraryDoc) => ({
-    title: doc.title,
-    author: doc.author_name ?? ["Unknown"],
-    first_publish_year: doc.first_publish_year ?? 0,
-    cover_edition_key: doc.cover_edition_key ?? "",
-    cover_i: doc.cover_i ?? "",
-    cover_size: "M",
-    cover_image: doc.cover_edition_key
-      ? `https://covers.openlibrary.org/b/olid/${doc.cover_edition_key}-M.jpg`
-      : doc.cover_i
-      ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M`
-      : "/public/images/no-cover-available.jpg",
-  }));
+  // Transformamos de OpenLibraryDoc a BookFromTitleSearch
+  return res.data.docs.map((docs: OpenLibraryDoc, index: number) => mapDocsToBooks(docs, index));
 };
+
+// GET FIRST BOOK BY TITLE (QUICK SEARCH)
+export const getFirstBookByTitle = async (title: string): Promise<BookFromTitleSearch> => {
+  const query = encodeURIComponent(title);
+  const res = await axios.get(`https://openlibrary.org/search.json?title=${query}`);
+  // Sacamos solo el primer libro
+  const docToShow: OpenLibraryDoc = res.data.docs[0];
+
+  return mapDocsToBooks(docToShow, 0);
+}
+
+// TODO
+// GET BOOKS BY AUTHOR
+// GET BOOKS BY PUBLISH YEAR
+// GET BOOKS BY GENRE
+// GET BOOKS BY LANGUAGE
+// GET BOOK RECOMMENDATION (RANDOM)
+// ADVANCED SEARCH (MULTIPLE FIELDS)
 
 /* 
 export const advancedSearch = (params: SearchParams) => {}

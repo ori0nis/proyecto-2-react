@@ -1,55 +1,60 @@
-import { useState } from "react";
-/* import { getBooksByTitle } from "../services/axios/axios.service"; */
+import { useEffect, useState } from "react";
+import { useFetch } from "../hooks/useFetch";
+import { getFirstBookByTitle } from "../services/axios/axios.service";
+import type { BookFromTitleSearch } from "../models/book";
 
 export const Test = () => {
-  const [book, setBook] = useState({
-    title: "",
-    author: "",
-    publish_year: 0,
-    cover_edition_key: "",
-    cover_i: "",
-    size: "",
-    cover_image: "",
-  });
+  const [book1, setBook1] = useState<BookFromTitleSearch>();
+
+  const { bookList, book, fetchBooksByTitle, fetchFirstBookByTitle } = useFetch();
 
   const testFetch = async () => {
-    const fetchData = await fetch("https://openlibrary.org/search.json?title=the+hobbit");
-    const data = await fetchData.json();
+    /* const fetchData = await fetch("https://openlibrary.org/search.json?title=king+lear");
+    const data = await fetchData.json(); */
 
-    const title = data.docs[0].title;
-    const author = data.docs[0].author_name[0];
-    const year = data.docs[0].first_publish_year;
-    const coverKey = data.docs[0].cover_edition_key;
-    const coverId = data.docs[0].cover_i;
-    const size = "M";
+    const data = await getFirstBookByTitle("king lear");
 
-    setBook({
-      title,
-      author,
-      publish_year: year,
-      cover_edition_key: coverKey,
-      cover_i: coverId,
-      size,
-      cover_image: coverKey
-        ? `https://covers.openlibrary.org/b/olid/${coverKey}-${size}.jpg`
-        : coverId
-        ? `https://covers.openlibrary.org/b/id/${coverId}-${size}`
-        : "/public/images/no-cover-available.jpg",
-    });
+    setBook1(data);
 
     console.log(data);
   };
 
-  /* getBooksByTitle({ title: "king lear" }); */
+  useEffect(() => {
+    /* fetchBookByTitle("the hobbit"); */
+  }, []);
 
   return (
-    <div>
-      <button onClick={testFetch}>Buscar</button>
-      <h1>{book.title}</h1>
-      <p>{book.author}</p>
-      <p>{book.publish_year}</p>
-      <img src={book.cover_image} alt={book.title} />
-      <p>{book.cover_edition_key}</p>
-    </div>
+    <>
+      <div>
+        <button onClick={testFetch}>Buscar</button>
+        <h1>{book1?.book_details.title}</h1>
+        <p>{book1?.book_details.author_name}</p>
+        <p>{book1?.book_details.first_publish_year}</p>
+        <img src={book1?.cover_image} alt={book1?.book_details.title} />
+        <p>{book1?.book_details.cover_edition_key}</p>
+      </div>
+      <div>
+        <button onClick={() => fetchBooksByTitle("king lear")}>Buscar</button>
+        {bookList?.map((book, book_id) => (
+          <div key={book_id}>
+            <h1>{book.book_details.title}</h1>
+            <p>{book.book_details.author_name}</p>
+            <p>{book.book_details.first_publish_year}</p>
+            <p>{book_id}</p>
+            <img src={book.cover_image} alt={book.book_details.title} />
+            <p>{book.book_details.cover_edition_key}</p>
+          </div>
+        ))}
+      </div>
+      <div>
+        <button onClick={() => fetchFirstBookByTitle("king lear")}>Quick search</button>
+        <h1>{book?.book_details.title}</h1>
+        <p>{book?.book_details.author_name}</p>
+        <p>{book?.book_details.first_publish_year}</p>
+        <p>{book?.book_id}</p>
+        <img src={book?.cover_image} alt={book?.book_details.title} />
+        <p>{book?.book_details.cover_edition_key}</p>
+      </div>
+    </>
   );
 };
