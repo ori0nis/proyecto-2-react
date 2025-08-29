@@ -1,21 +1,26 @@
+//? Mostramos solo 20 resultados de los 100 obtenidos por cada Show More con un slice. Cuando nos acabamos la página 1, llamamos a la 2 con FetchMoreBooks. Show More vuelve a aparecer para seguir enseñando los libros del nuevo fetch   
+
 import { useState } from "react";
 import { useFetch } from "../hooks/useFetch";
 
-const PAGE_SIZE = 20;
+const BOOKS_PER_PAGE = 20;
 
 export const TestWithPaging = () => {
-  const { bookList, fetchBooksByTitle, loading, error } = useFetch();
-  const [booksPerPage, setBooksPerPage] = useState<number>(PAGE_SIZE);
+  const { bookList, loading, error, currentSearch, fetchBooksByTitle, fetchBooksBySubject, fetchBooksByAuthor, fetchBooksByFirstPublishYear } = useFetch();
+  const [shownBooks, setShownBooks] = useState<number>(BOOKS_PER_PAGE);
+
+  const visibleBooks = bookList.slice(0, shownBooks);
+
+  const canShowMore = shownBooks < bookList.length;
+  const canFetchMore = !canShowMore && bookList.length > 0;
 
   const handleShowMore = () => {
-    setBooksPerPage((prev) => prev + PAGE_SIZE);
+    setShownBooks((prev) => prev + BOOKS_PER_PAGE);
   };
-
-  const visibleBooks = bookList.slice(0, booksPerPage);
 
   return (
     <div>
-      <button onClick={() => fetchBooksByTitle("the hobbit")}>Buscar</button>
+      <button onClick={() => fetchBooksBySubject("terror")}>Buscar desde componente con paginación</button>
 
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
@@ -29,7 +34,9 @@ export const TestWithPaging = () => {
         </div>
       ))}
 
-      {visibleBooks.length < bookList.length && <button onClick={handleShowMore}>Show more</button>}
+      {canShowMore && <button onClick={handleShowMore}>Show more books</button>}
+
+      {canFetchMore && <button onClick={() => fetchBooksBySubject(currentSearch, true)}>Fetch more books</button>}
     </div>
   );
 };

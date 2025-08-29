@@ -1,23 +1,26 @@
-//? El servicio de axios hace las requests a la API y mapea la respuesta
+//? El servicio de axios hace las requests a la API y mapea la respuesta. Cada llamada devuelve la primera página de resultados de OpenLibrary (100)
 
 import axios from "axios";
 import type { Book, OpenLibraryDoc } from "../../models/book";
 import { mapDocsToBooks } from "../../utils";
+import { languageMap } from "../../models/language/LanguageMap.type";
 
-/* interface SearchParams {
+interface AdvancedSearchParams {
   title: string;
-  author?: string;
-  first_publish_year?: number;
-  language?: string;
-} */
+  author: string;
+  year: string;
+  subject: string;
+  language: string;
+  page: number;
+}
 
 // GET BOOKS BY TITLE
-export const getBooksByTitle = async (title: string): Promise<Book[]> => {
+export const getBooksByTitle = async (title: string, page: number = 1): Promise<Book[]> => {
   // Encodeamos para que la query sea del formato adecuado
   const query = encodeURIComponent(title);
 
   // Página 1
-  const res = await axios.get(`https://openlibrary.org/search.json?title=${query}&page=1`);
+  const res = await axios.get(`https://openlibrary.org/search.json?title=${query}&page=${page}`);
   // Transformamos de OpenLibraryDoc a Book
   return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
 };
@@ -33,36 +36,56 @@ export const getFirstBookByTitle = async (title: string): Promise<Book> => {
 };
 
 // GET BOOKS BY AUTHOR
-export const getBooksByAuthor = async (author: string): Promise<Book[]> => {
+export const getBooksByAuthor = async (author: string, page: number = 1): Promise<Book[]> => {
   const query = encodeURIComponent(author);
-  const res = await axios.get(`https://openlibrary.org/search.json?author=${query}`);
+  const res = await axios.get(`https://openlibrary.org/search.json?author=${query}&page=${page}`);
 
   return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
 };
 
 // GET BOOKS BY FIRST PUBLISH YEAR
-export const getBooksByFirstPublishYear = async (year: number): Promise<Book[]> => {
+export const getBooksByFirstPublishYear = async (year: string, page: number = 1): Promise<Book[]> => {
   const query = encodeURIComponent(year);
-  const res = await axios.get(`https://openlibrary.org/search.json?q=first_publish_year:${query}`);
+  const res = await axios.get(`https://openlibrary.org/search.json?q=first_publish_year:${query}&page=${page}`);
+
+  return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
+};
+
+// GET BOOKS BY GENRE
+export const getBooksBySubject = async (subject: string, page: number = 1): Promise<Book[]> => {
+  const query = encodeURIComponent(subject);
+  const res = await axios.get(`https://openlibrary.org/search.json?subject=${query}&page=${page}`);
+
+  return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
+};
+
+// ADVANCED SEARCH
+export const advancedSearch = async ({
+  title,
+  author,
+  year,
+  subject,
+  language,
+  page = 1,
+}: AdvancedSearchParams): Promise<Book[]> => {
+  let q = "";
+
+  if (title) q += `title:${title} `;
+  if (author) q += `author:${author} `;
+  if (year) q += `year:${year} `;
+  if (subject) q += `subject:${subject} `;
+  if (language) {
+    const isoLang = languageMap[language.toLowerCase()];
+    if (isoLang) q += `language:${isoLang} `;
+  }
+
+  const query = encodeURIComponent(q.trim());
+  const res = await axios.get(`https://openlibrary.org/search.json?q=${query}&page=${page}`);
 
   return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
 };
 
 // TODO
-// GET BOOKS BY GENRE
-// GET BOOKS BY LANGUAGE
 // GET BOOK RECOMMENDATION (RANDOM)
-// ADVANCED SEARCH (MULTIPLE FIELDS)
 
-/* 
-export const advancedSearch = (params: SearchParams) => {}
-
-const params: Record<string, string> = {};
-if (title) params.title = title;
-if (author) params.author = author;
-if (year) params.first_publish_year = year;
-
-const queryString = new URLSearchParams(params).toString();
-const res = await axios.get(`https://openlibrary.org/search.json?${queryString}`);
-
-*/
+/* https://openlibrary.org/search.json?q=title:El+Quijote+author:Cervantes+language:ara&page=1 */

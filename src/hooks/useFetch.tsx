@@ -1,9 +1,11 @@
-//? useFetch pasa las requests de axios mapeadas por filtros adicionales y las sirve a los componentes
+/* eslint-disable @typescript-eslint/no-explicit-any */
+//? useFetch pasa las requests de axios mapeadas por filtros adicionales. Además, permite la paginación habilitando a que una llamada con loadMore = true dispare el request a la página 2, 3 y etc
 
 import { useState } from "react";
 import {
   getBooksByAuthor,
   getBooksByFirstPublishYear,
+  getBooksBySubject,
   getBooksByTitle,
   getFirstBookByTitle,
 } from "../services/axios/axios.service";
@@ -15,17 +17,28 @@ export const useFetch = () => {
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  // Estados para paginación
+  const [currentSearch, setCurrentSearch] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const fetchBooksByTitle = async (title: string) => {
+  const fetchBooksByTitle = async (title: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await getBooksByTitle(title);
-      const filteredBookList = filterOutRepeatedSingleAuthor(data);
+      const pageToFetch = loadMore ? currentPage + 1 : 1;
 
-      console.log(filteredBookList);
-      setBookList(filteredBookList);
+      const books = await getBooksByTitle(title, pageToFetch);
+      const filteredBookList = filterOutRepeatedSingleAuthor(books);
+
+      if (loadMore) {
+        setBookList((prev) => [...prev, ...filteredBookList]);
+        setCurrentPage((prev) => prev + 1);
+      } else {
+        setBookList(filteredBookList);
+        setCurrentSearch(title);
+        setCurrentPage(1);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -46,7 +59,6 @@ export const useFetch = () => {
     try {
       const bookToShow = await getFirstBookByTitle(title);
 
-      console.log(bookToShow);
       setBook(bookToShow);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -61,16 +73,24 @@ export const useFetch = () => {
     }
   };
 
-  const fetchBooksByAuthor = async (author: string) => {
+  const fetchBooksByAuthor = async (author: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
 
     try {
-      const books = await getBooksByAuthor(author);
+      const pageToFetch = loadMore ? currentPage + 1 : 1;
+
+      const books = await getBooksByAuthor(author, pageToFetch);
       const filteredBookList = filterOutRepeatedTitle(books);
 
-      console.log(filteredBookList);
-      setBookList(filteredBookList);
+      if (loadMore) {
+        setBookList((prev) => [...prev, ...filteredBookList]);
+        setCurrentPage((prev) => prev + 1);
+      } else {
+        setBookList(filteredBookList);
+        setCurrentSearch(author);
+        setCurrentPage(1);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -84,16 +104,55 @@ export const useFetch = () => {
     }
   };
 
-  const fetchBooksByFirstPublishYear = async (year: number) => {
+  const fetchBooksByFirstPublishYear = async (year: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
 
     try {
-      const books = await getBooksByFirstPublishYear(year);
+      const pageToFetch = loadMore ? currentPage + 1 : 1;
+
+      const books = await getBooksByFirstPublishYear(year, pageToFetch);
       const filteredBookList = filterOutRepeatedTitle(books);
 
-      console.log(filteredBookList);
-      setBookList(filteredBookList);
+      if (loadMore) {
+        setBookList((prev) => [...prev, ...filteredBookList]);
+        setCurrentPage((prev) => prev + 1);
+      } else {
+        setBookList(filteredBookList);
+        setCurrentSearch(year);
+        setCurrentPage(1);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        setError(error.message);
+      } else {
+        console.error(error);
+        setError("Unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchBooksBySubject = async (subject: string, loadMore: boolean = false) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const pageToFetch = loadMore ? currentPage + 1 : 1;
+
+      const books = await getBooksBySubject(subject, pageToFetch);
+      const filteredBookList = filterOutRepeatedTitle(books);
+
+      if (loadMore) {
+        setBookList((prev) => [...prev, ...filteredBookList]);
+        setCurrentPage((prev) => prev + 1);
+      } else {
+        setBookList(filteredBookList);
+        setCurrentSearch(subject);
+        setCurrentPage(1);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -110,11 +169,14 @@ export const useFetch = () => {
   return {
     bookList,
     book,
+    currentPage,
+    currentSearch,
     loading,
     error,
     fetchBooksByTitle,
     fetchFirstBookByTitle,
     fetchBooksByAuthor,
     fetchBooksByFirstPublishYear,
+    fetchBooksBySubject,
   };
 };
