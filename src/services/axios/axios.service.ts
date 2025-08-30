@@ -2,16 +2,16 @@
 
 import axios from "axios";
 import type { Book, OpenLibraryDoc } from "../../models/book";
-import { mapDocsToBooks } from "../../utils";
+import { filterOutRepeatedTitle, mapDocsToBooks } from "../../utils";
 import { languageMap } from "../../models/language/LanguageMap.type";
 
 interface AdvancedSearchParams {
   title: string;
-  author: string;
-  year: string;
-  subject: string;
-  language: string;
-  page: number;
+  author?: string;
+  year?: string;
+  subject?: string;
+  language?: string;
+  page?: number;
 }
 
 // GET BOOKS BY TITLE
@@ -85,7 +85,42 @@ export const advancedSearch = async ({
   return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
 };
 
-// TODO
-// GET BOOK RECOMMENDATION (RANDOM)
+// GET RANDOM BOOK RECOMMENDATION (BY AUTHOR)
+export const randomBookRecByAuthor = async (author: string): Promise<Book> => {
+  const query = encodeURIComponent(author);
+  const pages = [1, 2, 3, 4, 5];
 
-/* https://openlibrary.org/search.json?q=title:El+Quijote+author:Cervantes+language:ara&page=1 */
+  // Hacemos request conjunta
+  const fullRequest = await Promise.all(
+    pages.map((page) => axios.get(`https://openlibrary.org/search.json?author=${query}&page=${page}`))
+  );
+  // Aplanamos en un solo array (cada respuesta devuelve un array de docs)
+  const bookList = fullRequest.flatMap((res) => res.data.docs);
+  // Mapeamos
+  const mappedBookList = bookList.map(mapDocsToBooks);
+  // Filtramos por si acaso
+  const filteredBooklist = filterOutRepeatedTitle(mappedBookList);
+  // Escogemos libro
+  const randomBook = Math.floor(Math.random() * filteredBooklist.length);
+
+  return filteredBooklist[randomBook];
+};
+
+// GET RANDOM BOOK RECOMMENDATION (BY YEAR)
+export const randomBookRecByYear = async (year: string): Promise<Book> => {
+  const query = encodeURIComponent(year);
+  const pages = [1, 2, 3, 4, 5];
+
+  const fullRequest = await Promise.all(
+    pages.map((page) => axios.get(`https://openlibrary.org/search.json?q=first_publish_year:${query}&page=${page}`))
+  );
+
+  const bookList = fullRequest.flatMap((res) => res.data.docs);
+  const mappedBookList = bookList.map(mapDocsToBooks);
+  const filteredBookList = filterOutRepeatedTitle(mappedBookList);
+  const randomBook = Math.floor(Math.random() * filteredBookList.length);
+  
+  return filteredBookList[randomBook];
+};
+
+// GET RANDOM BOOK RECOMMENDATION (BY SUBJECT)
