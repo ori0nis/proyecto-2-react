@@ -6,7 +6,7 @@ import { useFetch } from "../hooks/useFetch";
 const BOOKS_PER_PAGE = 20;
 
 export const TestWithPaging = () => {
-  const { book, bookList, loading, error, currentSearch, fetchBooksByTitle, fetchBooksBySubject, fetchBooksByAuthor, fetchBooksByFirstPublishYear, fetchRandomBookByAuthor } = useFetch();
+  const { book, bookList, loading, error, currentSearch, fetchBooksByTitle, fetchBooksBySubject, fetchBooksByAuthor, fetchBooksByFirstPublishYear, fetchRandomBookByAuthor, fetchRandomBookByYear, fetchRandomBookBySubject } = useFetch();
   const [shownBooks, setShownBooks] = useState<number>(BOOKS_PER_PAGE);
 
   const visibleBooks = bookList.slice(0, shownBooks);
@@ -20,7 +20,7 @@ export const TestWithPaging = () => {
 
   return (
     <div>
-      <button onClick={() => fetchRandomBookByAuthor("haruki murakami")}>Buscar desde componente con paginación</button>
+      <button onClick={() => fetchRandomBookBySubject("romance")}>Buscar desde componente con paginación</button>
 
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
@@ -36,14 +36,14 @@ export const TestWithPaging = () => {
 
       <div>
         <h2>{book?.book_details.title}</h2>
-        <p>{book?.book_details.author_name}</p>
+        <p>{book?.book_details.author_name.join(", ")}</p>
         <p>{book?.book_details.first_publish_year}</p>
         <img src={book?.cover_image} alt={book?.book_details.title} />
       </div>
 
       {canShowMore && <button onClick={handleShowMore}>Show more books</button>}
 
-      {canFetchMore && <button onClick={() => fetchRandomBookByAuthor(currentSearch)}>Fetch more books</button>}
+      {canFetchMore && <button onClick={() => fetchRandomBookBySubject(currentSearch)}>Fetch more books</button>}
     </div>
   );
 };

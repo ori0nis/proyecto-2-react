@@ -9,6 +9,8 @@ import {
   getBooksByTitle,
   getFirstBookByTitle,
   randomBookRecByAuthor,
+  randomBookRecBySubject,
+  randomBookRecByYear,
 } from "../services/axios/axios.service";
 import type { Book } from "../models/book";
 import { filterOutRepeatedSingleAuthor, filterOutRepeatedTitle } from "../utils";
@@ -187,6 +189,46 @@ export const useFetch = () => {
     }
   };
 
+  const fetchRandomBookByYear = async (year: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const book = await randomBookRecByYear(year);
+      setBook(book);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        setError(error.message);
+      } else {
+        console.error(error);
+        setError("Unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRandomBookBySubject = async (subject: string) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const book = await randomBookRecBySubject(subject);
+      setBook(book);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        setError(error.message);
+      } else {
+        console.error(error);
+        setError("Unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     bookList,
     book,
@@ -200,5 +242,7 @@ export const useFetch = () => {
     fetchBooksByFirstPublishYear,
     fetchBooksBySubject,
     fetchRandomBookByAuthor,
+    fetchRandomBookByYear,
+    fetchRandomBookBySubject
   };
 };

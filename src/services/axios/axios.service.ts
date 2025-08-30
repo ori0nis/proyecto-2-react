@@ -124,3 +124,16 @@ export const randomBookRecByYear = async (year: string): Promise<Book> => {
 };
 
 // GET RANDOM BOOK RECOMMENDATION (BY SUBJECT)
+export const randomBookRecBySubject = async (subject: string): Promise<Book> => {
+  const query = encodeURIComponent(subject);
+  const pages = [1, 2, 3, 4, 5];
+
+  const fullRequest = await Promise.all(pages.map((page) => axios.get(`https://openlibrary.org/search.json?q=subject=${query}&page=${page}`)));
+
+  const bookList = fullRequest.flatMap((res) => res.data.docs);
+  const mappedBookList = bookList.map(mapDocsToBooks);
+  const filteredBookList = filterOutRepeatedTitle(mappedBookList);
+  const randomBook = Math.floor(Math.random() * filteredBookList.length);
+
+  return filteredBookList[randomBook];
+}
