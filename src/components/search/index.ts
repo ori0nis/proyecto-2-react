@@ -1,2 +1,2 @@
 export * from "./SearchBar";
-export * from "./SearchForm";
+export * from "./AdvancedSearchForm";

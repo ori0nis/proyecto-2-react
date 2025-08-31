@@ -1,13 +1,18 @@
 /* import { Test } from "./components/Test"; */
-import { SearchBar } from "./components/search";
+/* import { SearchBar, AdvancedSearchForm } from "./components/search";
 import { TestWithPaging } from "./components/TestWithPaging";
+import { SearchPage } from "./pages/SearchPage"; */
 
 const App = () => {
   return (
     <>
       {/* <Test /> */}
-      <SearchBar/>
-      <TestWithPaging/>
+      {/* <SearchBar/>
+      <AdvancedSearchForm/>
+      <h1>PAGE STARTS HERE</h1>
+      <SearchPage/>
+      <h1>PAGE ENDS HERE</h1>
+      <TestWithPaging/> */}
     </>
   );
 };

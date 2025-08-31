@@ -28,7 +28,7 @@ export const SearchBar = () => {
               label="Title: "
               value={field.value}
               name="title"
-              placeholder="Type a book title to search..."
+              placeholder="Example: The Hobbit"
               required={true}
               onChange={field.onChange}
               onBlur={field.onBlur}

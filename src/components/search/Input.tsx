@@ -2,7 +2,7 @@ interface Props {
   label: string;
   value: string;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   error?: string;
   onChange: (value: string) => void;
