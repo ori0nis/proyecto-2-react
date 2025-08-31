@@ -3,6 +3,7 @@
 
 import { useState } from "react";
 import {
+  advancedSearch,
   getBooksByAuthor,
   getBooksByFirstPublishYear,
   getBooksBySubject,
@@ -14,6 +15,7 @@ import {
 } from "../services/axios/axios.service";
 import type { Book } from "../models/book";
 import { filterOutRepeatedSingleAuthor, filterOutRepeatedTitle } from "../utils";
+import type { AdvancedSearchParams } from "../models/search";
 
 export const useFetch = () => {
   const [bookList, setBookList] = useState<Book[]>([]);
@@ -22,6 +24,7 @@ export const useFetch = () => {
   const [error, setError] = useState<string | null>(null);
   // Estados para paginación
   const [currentSearch, setCurrentSearch] = useState<string>("");
+  const [advancedCurrentSearch, setAdvancedCurrentSearch] = useState<AdvancedSearchParams | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchBooksByTitle = async (title: string, loadMore: boolean = false) => {
@@ -169,6 +172,40 @@ export const useFetch = () => {
     }
   };
 
+  const fetchAdvancedSearch = async (params: AdvancedSearchParams, loadMore: boolean = false) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const pageToFetch = loadMore ? currentPage + 1 : 1;
+
+      const books = await advancedSearch({
+        ...params,
+        page: pageToFetch,
+      });
+
+      const filteredBookList = filterOutRepeatedTitle(books);
+      if (loadMore) {
+        setBookList((prev) => [...prev, ...filteredBookList]);
+        setCurrentPage((prev) => prev + 1);
+      } else {
+        setBookList(filteredBookList);
+        setAdvancedCurrentSearch(params);
+        setCurrentPage(1);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        setError(error.message);
+      } else {
+        console.error(error);
+        setError("Unknown error occurred");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchRandomBookByAuthor = async (author: string) => {
     setLoading(true);
     setError(null);
@@ -234,6 +271,7 @@ export const useFetch = () => {
     book,
     currentPage,
     currentSearch,
+    advancedCurrentSearch,
     loading,
     error,
     fetchBooksByTitle,
@@ -243,6 +281,7 @@ export const useFetch = () => {
     fetchBooksBySubject,
     fetchRandomBookByAuthor,
     fetchRandomBookByYear,
-    fetchRandomBookBySubject
+    fetchRandomBookBySubject,
+    fetchAdvancedSearch,
   };
 };

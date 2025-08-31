@@ -20,30 +20,30 @@ export const TestWithPaging = () => {
 
   return (
     <div>
-      <button onClick={() => fetchRandomBookBySubject("romance")}>Buscar desde componente con paginación</button>
+      <button onClick={() => fetchBooksByTitle("the hobbit")}>Buscar desde componente con paginación</button>
 
       {loading && <p>Cargando...</p>}
       {error && <p>{error}</p>}
 
-      {/* {visibleBooks.map((book, index) => (
+      {visibleBooks.map((book, index) => (
         <div key={index}>
           <h2>{book.book_details.title}</h2>
           <p>{book.book_details.author_name.join(", ")}</p>
           <p>{book.book_details.first_publish_year}</p>
           <img src={book.cover_image} alt={book.book_details.title} />
         </div>
-      ))} */}
+      ))}
 
-      <div>
+      {/* <div>
         <h2>{book?.book_details.title}</h2>
         <p>{book?.book_details.author_name.join(", ")}</p>
         <p>{book?.book_details.first_publish_year}</p>
         <img src={book?.cover_image} alt={book?.book_details.title} />
-      </div>
+      </div> */}
 
       {canShowMore && <button onClick={handleShowMore}>Show more books</button>}
 
-      {canFetchMore && <button onClick={() => fetchRandomBookBySubject(currentSearch)}>Fetch more books</button>}
+      {canFetchMore && <button onClick={() => fetchBooksByTitle(currentSearch, true)}>Fetch more books</button>}
     </div>
   );
 };
