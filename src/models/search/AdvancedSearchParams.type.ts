@@ -1,5 +1,5 @@
 export interface AdvancedSearchParams {
-  title: string;
+  title?: string;
   author?: string;
   year?: string;
   subject?: string;

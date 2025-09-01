@@ -21,17 +21,30 @@ export const useFetch = () => {
   const [bookList, setBookList] = useState<Book[]>([]);
   const [book, setBook] = useState<Book | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   // Estados para paginación
   const [searchType, setSearchType] = useState<string>("");
   const [currentSearch, setCurrentSearch] = useState<string>("");
-  const [advancedCurrentSearch, setAdvancedCurrentSearch] = useState<AdvancedSearchParams | null>(null);
+  const [advancedCurrentSearch, setAdvancedCurrentSearch] = useState<AdvancedSearchParams>({
+    title: "",
+    author: "",
+    year: "",
+    subject: "",
+    language: "",
+    page: 1
+  });
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const fetchBooksByTitle = async (title: string, loadMore: boolean = false) => {
-    setLoading(true);
-    setError(null);
     setSearchType("title");
+
+    if (loadMore) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+      setBookList([]);
+    }
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -56,7 +69,11 @@ export const useFetch = () => {
         setError("Unknown error occurred");
       }
     } finally {
-      setLoading(false);
+      if (loadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
@@ -83,9 +100,14 @@ export const useFetch = () => {
   };
 
   const fetchBooksByAuthor = async (author: string, loadMore: boolean = false) => {
-    setLoading(true);
-    setError(null);
     setSearchType("author");
+
+    if (loadMore) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+      setBookList([]);
+    }
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -110,14 +132,23 @@ export const useFetch = () => {
         setError("Unknown error occurred");
       }
     } finally {
-      setLoading(false);
+      if (loadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
   const fetchBooksByFirstPublishYear = async (year: string, loadMore: boolean = false) => {
-    setLoading(true);
-    setError(null);
     setSearchType("year");
+
+    if (loadMore) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+      setBookList([]);
+    }
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -142,14 +173,23 @@ export const useFetch = () => {
         setError("Unknown error occurred");
       }
     } finally {
-      setLoading(false);
+      if (loadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
   const fetchBooksBySubject = async (subject: string, loadMore: boolean = false) => {
-    setLoading(true);
-    setError(null);
     setSearchType("subject");
+
+    if (loadMore) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+      setBookList([]);
+    }
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -174,13 +214,23 @@ export const useFetch = () => {
         setError("Unknown error occurred");
       }
     } finally {
-      setLoading(false);
+      if (loadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
   const fetchAdvancedSearch = async (params: AdvancedSearchParams, loadMore: boolean = false) => {
-    setLoading(true);
-    setError(null);
+    setSearchType("advanced search");
+
+    if (loadMore) {
+      setLoadingMore(true);
+    } else {
+      setLoading(true);
+      setBookList([]);
+    }
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -208,7 +258,11 @@ export const useFetch = () => {
         setError("Unknown error occurred");
       }
     } finally {
-      setLoading(false);
+      if (loadMore) {
+        setLoadingMore(false);
+      } else {
+        setLoading(false);
+      }
     }
   };
 
@@ -280,6 +334,7 @@ export const useFetch = () => {
     currentSearch,
     advancedCurrentSearch,
     loading,
+    loadingMore,
     error,
     fetchBooksByTitle,
     fetchFirstBookByTitle,

@@ -1,9 +1,10 @@
-//? Este componente es el que consume a FetchHighway para lanzar la búsqueda adecuada, dependiendo de la selección del user
+//? Este componente es el que consume el contexto de FetchHighway para lanzar la búsqueda adecuada, dependiendo de la selección del user
 
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "./index";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSearch } from "../../context/search";
 
 type FormValues = {
   title: string;
@@ -13,21 +14,7 @@ type FormValues = {
   language: string;
 };
 
-interface Props {
-  fetchBooksByTitle: (title: string) => void;
-  fetchFirstBookByTitle: (title: string) => void;
-  fetchBooksByAuthor: (author: string) => void;
-  fetchBooksByFirstPublishYear: (year: string) => void;
-  fetchBooksBySubject: (subject: string) => void;
-}
-
-export const SearchBar = ({
-  fetchBooksByTitle,
-  fetchFirstBookByTitle,
-  fetchBooksByAuthor,
-  fetchBooksByFirstPublishYear,
-  fetchBooksBySubject,
-}: Props) => {
+export const SearchBar = () => {
   type ActiveSearch = keyof typeof searchConfigs; // Para poder meter el searchConfig
 
   const { handleSubmit, control } = useForm<FormValues>({
@@ -38,6 +25,13 @@ export const SearchBar = ({
       subject: "",
     },
   });
+  const {
+    fetchBooksByTitle,
+    fetchFirstBookByTitle,
+    fetchBooksByAuthor,
+    fetchBooksByFirstPublishYear,
+    fetchBooksBySubject,
+  } = useSearch();
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
   const navigate = useNavigate();
 
@@ -57,13 +51,13 @@ export const SearchBar = ({
     },
     year: {
       name: "year" as const,
-      label: "Title: ",
+      label: "Publish year: ",
       placeholder: "Example: 1995",
       fetchFn: fetchBooksByFirstPublishYear,
     },
     subject: {
       name: "subject" as const,
-      label: "Subject: ",
+      label: "Genre: ",
       placeholder: "Example: Fantasy",
       fetchFn: fetchBooksBySubject,
     },
@@ -118,7 +112,7 @@ export const SearchBar = ({
               onClick={handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
                 console.log(data);
-                navigate("/result-list")
+                navigate("/result");
               })}
             >
               Quick search

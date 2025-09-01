@@ -1,7 +1,8 @@
 import { Controller, useForm } from "react-hook-form";
-import { useFetch } from "../../hooks/useFetch";
 import { Input } from "./Input";
 import type { AdvancedSearchParams } from "../../models/search";
+import { useSearch } from "../../context/search";
+import { useNavigate } from "react-router-dom";
 
 type FormValues = {
   title: string;
@@ -21,12 +22,13 @@ export const AdvancedSearchForm = () => {
       language: "",
     },
   });
-  const { fetchAdvancedSearch } = useFetch();
+  const { fetchAdvancedSearch } = useSearch();
+  const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
     console.log(data);
     const searchParams: AdvancedSearchParams = {
-      title: data.title,
+      title: data.title || undefined,
       author: data.author || undefined,
       year: data.year || undefined,
       subject: data.subject || undefined,
@@ -34,7 +36,7 @@ export const AdvancedSearchForm = () => {
     };
 
     fetchAdvancedSearch(searchParams);
-    // navigate to
+    navigate("/result-list")
   };
 
   return (
@@ -44,14 +46,13 @@ export const AdvancedSearchForm = () => {
         <Controller
           name="title"
           control={control}
-          rules={{ required: "Please type a title" }}
           render={({ field, fieldState }) => (
             <Input
               label="Title: "
               value={field.value}
               name="title"
               placeholder="Example: The Hobbit"
-              required={true}
+              required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
               error={fieldState.error?.message}
