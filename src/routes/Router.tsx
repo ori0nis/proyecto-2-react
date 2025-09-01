@@ -1,7 +1,8 @@
 import { BrowserRouter, Route } from "react-router-dom";
+import type { ReactNode } from "react";
 import { BrokenRouteAvoider } from "./index";
 import { SearchPage } from "../pages/SearchPage";
-import type { ReactNode } from "react";
+import { ResultList } from "../components/results";
 
 interface Props {
   children: ReactNode;
@@ -13,6 +14,7 @@ export const Router = ({ children }: Props) => {
       <BrowserRouter>
         <BrokenRouteAvoider>
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/result-list" element={<ResultList/>}
         </BrokenRouteAvoider>
         {children}
       </BrowserRouter>

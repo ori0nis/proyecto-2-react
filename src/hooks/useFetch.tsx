@@ -23,6 +23,7 @@ export const useFetch = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   // Estados para paginación
+  const [searchType, setSearchType] = useState<string>("");
   const [currentSearch, setCurrentSearch] = useState<string>("");
   const [advancedCurrentSearch, setAdvancedCurrentSearch] = useState<AdvancedSearchParams | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,6 +31,7 @@ export const useFetch = () => {
   const fetchBooksByTitle = async (title: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
+    setSearchType("title");
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -61,6 +63,7 @@ export const useFetch = () => {
   const fetchFirstBookByTitle = async (title: string) => {
     setLoading(true);
     setError(null);
+    setSearchType("single title");
 
     try {
       const bookToShow = await getFirstBookByTitle(title);
@@ -82,6 +85,7 @@ export const useFetch = () => {
   const fetchBooksByAuthor = async (author: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
+    setSearchType("author");
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -113,6 +117,7 @@ export const useFetch = () => {
   const fetchBooksByFirstPublishYear = async (year: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
+    setSearchType("year");
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -144,6 +149,7 @@ export const useFetch = () => {
   const fetchBooksBySubject = async (subject: string, loadMore: boolean = false) => {
     setLoading(true);
     setError(null);
+    setSearchType("subject");
 
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
@@ -269,6 +275,7 @@ export const useFetch = () => {
   return {
     bookList,
     book,
+    searchType,
     currentPage,
     currentSearch,
     advancedCurrentSearch,

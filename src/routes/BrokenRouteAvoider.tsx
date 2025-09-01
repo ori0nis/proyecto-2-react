@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
-import { Route, Routes } from "react-router-dom";
-import { SearchPage } from "../pages/SearchPage";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { NotFound } from "./NotFound";
 
 interface Props {
@@ -12,7 +11,7 @@ export const BrokenRouteAvoider = ({ children }: Props) => {
     <>
       <Routes>
         {children}
-        <Route path="*" element={<SearchPage />} />
+        <Route path="*" element={<Navigate to="/search" replace />} />
         <Route path="/404" element={<NotFound />} />
       </Routes>
     </>
