@@ -11,7 +11,7 @@ export const ResultList = () => {
 
   const visibleBooks = bookList.slice(0, shownBooks);
   const canShowMore = bookList.length > shownBooks;
-  const canFetchMore = !canShowMore && bookList.length > 0; 
+  const canFetchMore = !canShowMore && bookList.length > 0;
 
   const handleShowMore = () => setShownBooks((prev) => prev + BOOKS_PER_PAGE);
 

@@ -5,7 +5,7 @@ import { useSearch } from "../../context/search";
 import { useNavigate } from "react-router-dom";
 
 type FormValues = {
-  title: string;
+  title?: string;
   author?: string;
   year?: string;
   subject?: string;
@@ -22,11 +22,21 @@ export const AdvancedSearchForm = () => {
       language: "",
     },
   });
-  const { fetchAdvancedSearch } = useSearch();
+  const { fetchAdvancedSearch, setSearchType } = useSearch();
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
+    // Si el user no ha llenado al menos un campo, no le dejamos buscar
+    const inputValues = Object.values(data);
+    const hasFilledAtLeastOneField = inputValues.some((value) => value && value.trim() !== "");
+
+    if (!hasFilledAtLeastOneField) {
+      alert("Please fill in at least one field to search");
+      return;
+    }
+
+    setSearchType("advanced search");
+
     const searchParams: AdvancedSearchParams = {
       title: data.title || undefined,
       author: data.author || undefined,
@@ -36,7 +46,7 @@ export const AdvancedSearchForm = () => {
     };
 
     fetchAdvancedSearch(searchParams);
-    navigate("/result-list")
+    navigate("/books/results");
   };
 
   return (

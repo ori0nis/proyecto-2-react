@@ -19,7 +19,17 @@ import type { AdvancedSearchParams } from "../models/search";
 
 export const useFetch = () => {
   const [bookList, setBookList] = useState<Book[]>([]);
-  const [book, setBook] = useState<Book | null>(null);
+  const [book, setBook] = useState<Book>({
+    book_details: {
+      title: "",
+      author_name: [],
+      first_publish_year: 0,
+      cover_edition_key: "",
+      cover_i: 0,
+    },
+    cover_size: "",
+    cover_image: "",
+  });
   const [loading, setLoading] = useState<boolean>(false);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,7 +42,7 @@ export const useFetch = () => {
     year: "",
     subject: "",
     language: "",
-    page: 1
+    page: 1,
   });
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -272,6 +282,8 @@ export const useFetch = () => {
 
     try {
       const book = await randomBookRecByAuthor(author);
+      console.log(book)
+
       setBook(book);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -330,6 +342,7 @@ export const useFetch = () => {
     bookList,
     book,
     searchType,
+    setSearchType,
     currentPage,
     currentSearch,
     advancedCurrentSearch,

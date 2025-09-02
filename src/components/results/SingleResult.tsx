@@ -12,7 +12,7 @@ export const SingleResult = () => {
   return (
     <div>
       <h2>{book.book_details.title}</h2>
-      <img src={book.cover_image}></img>
+      {book.cover_image && <img src={book.cover_image} alt={book.book_details.title}></img>}
       <p>{book.book_details.author_name}</p>
       <p>{book.book_details.first_publish_year}</p>
     </div>

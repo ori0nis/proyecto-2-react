@@ -1,4 +1,4 @@
-//? Este componente es el que consume el contexto de FetchHighway para lanzar la búsqueda adecuada, dependiendo de la selección del user
+//? Este componente es el que consume el SearchContext para lanzar la búsqueda adecuada, dependiendo de la selección del user
 
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "./index";
@@ -31,6 +31,7 @@ export const SearchBar = () => {
     fetchBooksByAuthor,
     fetchBooksByFirstPublishYear,
     fetchBooksBySubject,
+    setSearchType,
   } = useSearch();
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
   const navigate = useNavigate();
@@ -67,8 +68,9 @@ export const SearchBar = () => {
 
   const onSubmit = (data: FormValues) => {
     // Metemos la función correspondiente y navegamos al ResultList
+    setSearchType(config.name);
     config.fetchFn(data[config.name]);
-    navigate("/result-list");
+    navigate("/books/results");
   };
 
   return (
@@ -88,7 +90,7 @@ export const SearchBar = () => {
           <Controller
             name={config.name}
             control={control}
-            rules={{ required: `${config.name} is required` }}
+            rules={{ required: `${config.name} is required` }} //TODO: Maquetar bien este error
             render={({ field, fieldState }) => (
               <Input
                 label={config.label}
@@ -111,8 +113,9 @@ export const SearchBar = () => {
               // Este submit se hace manualmente para evitar dificultades
               onClick={handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
+                setSearchType("single title");
                 console.log(data);
-                navigate("/result");
+                navigate("/books/results");
               })}
             >
               Quick search

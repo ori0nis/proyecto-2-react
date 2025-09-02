@@ -11,12 +11,17 @@ interface SearchContextProps {
   currentSearch: string;
   advancedCurrentSearch: AdvancedSearchParams;
   searchType: string;
+  setSearchType: (type: string) => void;
+  hasSearched: boolean;
   fetchBooksByTitle: (title: string, loadMore?: boolean) => void;
   fetchFirstBookByTitle: (title: string) => void;
   fetchBooksByAuthor: (author: string, loadMore?: boolean) => void;
   fetchBooksByFirstPublishYear: (year: string, loadMore?: boolean) => void;
   fetchBooksBySubject: (subject: string, loadMore?: boolean) => void;
   fetchAdvancedSearch: (params: AdvancedSearchParams, loadMore?: boolean) => void;
+  fetchRandomBookByAuthor: (author: string) => void;
+  fetchRandomBookByYear: (year: string) => void;
+  fetchRandomBookBySubject: (subject: string) => void;
   handleFetchMore: () => void;
 }
 

@@ -15,7 +15,7 @@ export const mapDocsToBooks = (doc: OpenLibraryDoc): Book => {
     cover_image: doc.cover_edition_key
       ? `https://covers.openlibrary.org/b/olid/${doc.cover_edition_key}-M.jpg`
       : doc.cover_i
-      ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M`
+      ? `https://covers.openlibrary.org/b/id/${doc.cover_i}-M.jpg`
       : "/images/no-cover-available.jpg",
   };
 };
