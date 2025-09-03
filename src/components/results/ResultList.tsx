@@ -25,7 +25,12 @@ export const ResultList = () => {
     <div>
       {visibleBooks.map((book) => (
         <>
-          <div key={book.book_details.key} onClick={() => setSelectedBook(book)}>
+          <div
+            key={book.book_details.key}
+            onClick={() => {
+              setSelectedBook(book);
+            }}
+          >
             <h2>{book.book_details.title}</h2>
             <img src={book.cover_image} alt={book.book_details.title}></img>
             <p>{book.book_details.author_name.join(", ")}</p>

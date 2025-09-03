@@ -1,8 +1,7 @@
-import { /* useState,  */ useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { SearchContext } from "./SearchContext";
 import { useFetch } from "../../hooks/useFetch";
 import type { Book } from "../../models/book";
-/* import type { AdvancedSearchParams } from "../../models/search"; */
 
 interface Props {
   children: ReactNode;

@@ -18,6 +18,10 @@ import { filterOutRepeatedSingleAuthor, filterOutRepeatedTitle } from "../utils"
 import type { AdvancedSearchParams } from "../models/search";
 
 export const useFetch = () => {
+  //! Creo cachés para que no salte el 429 de OpenLibrary. Las búsquedas random no están cacheadas porque si no siempre devolverían lo mismo
+  const cache: Record<string, Book[]> = {};
+  const singleBookCache: Record<string, Book> = {};
+
   const [bookList, setBookList] = useState<Book[]>([]);
   const [book, setBook] = useState<Book>({
     book_details: {
@@ -26,7 +30,7 @@ export const useFetch = () => {
       first_publish_year: 0,
       cover_edition_key: "",
       cover_i: 0,
-      key: ""
+      key: "",
     },
     cover_size: "",
     cover_image: "",
@@ -60,6 +64,14 @@ export const useFetch = () => {
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
 
+      // Si no estamos pidiendo más libros y la búsqueda está en caché, devolvemos la caché
+      if (!loadMore && cache[title]) {
+        setBookList(cache[title]);
+        setCurrentSearch(title);
+        setCurrentPage(1);
+        return;
+      }
+
       const books = await getBooksByTitle(title, pageToFetch);
       const filteredBookList = filterOutRepeatedSingleAuthor(books);
 
@@ -70,6 +82,7 @@ export const useFetch = () => {
         setBookList(filteredBookList);
         setCurrentSearch(title);
         setCurrentPage(1);
+        cache[title] = filteredBookList;
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -93,9 +106,16 @@ export const useFetch = () => {
     setSearchType("single title");
 
     try {
+      if (singleBookCache[title]) {
+        setBook(singleBookCache[title]);
+        setLoading(false);
+        return;
+      }
+
       const bookToShow = await getFirstBookByTitle(title);
 
       setBook(bookToShow);
+      singleBookCache[title] = bookToShow;
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -122,6 +142,13 @@ export const useFetch = () => {
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
 
+      if (!loadMore && cache[author]) {
+        setBookList(cache[author]);
+        setCurrentSearch(author);
+        setCurrentPage(1);
+        return;
+      }
+
       const books = await getBooksByAuthor(author, pageToFetch);
       const filteredBookList = filterOutRepeatedTitle(books);
 
@@ -132,6 +159,7 @@ export const useFetch = () => {
         setBookList(filteredBookList);
         setCurrentSearch(author);
         setCurrentPage(1);
+        cache[author] = filteredBookList;
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -163,6 +191,13 @@ export const useFetch = () => {
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
 
+      if (!loadMore && cache[year]) {
+        setBookList(cache[year]);
+        setCurrentSearch(year);
+        setCurrentPage(1);
+        return;
+      }
+
       const books = await getBooksByFirstPublishYear(year, pageToFetch);
       const filteredBookList = filterOutRepeatedTitle(books);
 
@@ -173,6 +208,7 @@ export const useFetch = () => {
         setBookList(filteredBookList);
         setCurrentSearch(year);
         setCurrentPage(1);
+        cache[year] = filteredBookList;
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -204,6 +240,13 @@ export const useFetch = () => {
     try {
       const pageToFetch = loadMore ? currentPage + 1 : 1;
 
+      if (!loadMore && cache[subject]) {
+        setBookList(cache[subject]);
+        setCurrentSearch(subject);
+        setCurrentPage(1);
+        return;
+      }
+
       const books = await getBooksBySubject(subject, pageToFetch);
       const filteredBookList = filterOutRepeatedTitle(books);
 
@@ -214,6 +257,7 @@ export const useFetch = () => {
         setBookList(filteredBookList);
         setCurrentSearch(subject);
         setCurrentPage(1);
+        cache[subject] = filteredBookList;
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -281,7 +325,6 @@ export const useFetch = () => {
 
     try {
       const book = await randomBookRecByAuthor(author);
-      console.log(book)
 
       setBook(book);
     } catch (error: unknown) {
@@ -302,6 +345,7 @@ export const useFetch = () => {
 
     try {
       const book = await randomBookRecByYear(year);
+
       setBook(book);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -321,6 +365,7 @@ export const useFetch = () => {
 
     try {
       const book = await randomBookRecBySubject(subject);
+
       setBook(book);
     } catch (error: unknown) {
       if (error instanceof Error) {
