@@ -5,4 +5,5 @@ export interface OpenLibraryDoc {
   first_publish_year: number;
   cover_edition_key: string;
   cover_i: number;
+  key: string;
 }

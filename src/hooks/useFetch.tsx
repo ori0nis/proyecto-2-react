@@ -26,6 +26,7 @@ export const useFetch = () => {
       first_publish_year: 0,
       cover_edition_key: "",
       cover_i: 0,
+      key: ""
     },
     cover_size: "",
     cover_image: "",

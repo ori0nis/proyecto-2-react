@@ -1,6 +1,7 @@
-import { /* useState,  */ type ReactNode } from "react";
+import { /* useState,  */ useState, type ReactNode } from "react";
 import { SearchContext } from "./SearchContext";
 import { useFetch } from "../../hooks/useFetch";
+import type { Book } from "../../models/book";
 /* import type { AdvancedSearchParams } from "../../models/search"; */
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 
 export const SearchProvider = ({ children }: Props) => {
   const fetchAnything = useFetch();
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
 
   const handleFetchMore = () => {
     switch (fetchAnything.searchType) {
@@ -35,6 +37,8 @@ export const SearchProvider = ({ children }: Props) => {
       value={{
         ...fetchAnything,
         handleFetchMore,
+        selectedBook,
+        setSelectedBook,
       }}
     >
       {children}

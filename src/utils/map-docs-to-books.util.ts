@@ -10,6 +10,7 @@ export const mapDocsToBooks = (doc: OpenLibraryDoc): Book => {
       first_publish_year: doc.first_publish_year ?? 0,
       cover_edition_key: doc.cover_edition_key ?? "",
       cover_i: doc.cover_i ?? 0,
+      key: doc.key ?? "", // Este es el id único de cada libro
     },
     cover_size: "M",
     cover_image: doc.cover_edition_key

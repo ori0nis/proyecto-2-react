@@ -11,6 +11,8 @@ interface SearchContextProps {
   currentSearch: string;
   advancedCurrentSearch: AdvancedSearchParams;
   searchType: string;
+  selectedBook: Book | null;
+  setSelectedBook: (book: Book | null) => void;
   setSearchType: (type: string) => void;
   fetchBooksByTitle: (title: string, loadMore?: boolean) => void;
   fetchFirstBookByTitle: (title: string) => void;
