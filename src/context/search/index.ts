@@ -1,2 +1,2 @@
 export * from "./SearchContext";
-export * from "./SearchContextProvider";
+export * from "./SearchProvider";

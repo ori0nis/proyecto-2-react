@@ -3,6 +3,7 @@ import { Input } from "./Input";
 import type { AdvancedSearchParams } from "../../models/search";
 import { useSearch } from "../../context/search";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../context/navigation";
 
 type FormValues = {
   title?: string;
@@ -23,6 +24,7 @@ export const AdvancedSearchForm = () => {
     },
   });
   const { fetchAdvancedSearch, setSearchType } = useSearch();
+  const {setAllowAccess} = useNavigation();
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
@@ -46,6 +48,7 @@ export const AdvancedSearchForm = () => {
     };
 
     fetchAdvancedSearch(searchParams);
+    setAllowAccess(true);
     navigate("/books/results");
   };
 

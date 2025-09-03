@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Input } from "./index";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../context/navigation";
 import { useSearch } from "../../context/search";
 
 type FormValues = {
@@ -33,6 +34,7 @@ export const SearchBar = () => {
     fetchBooksBySubject,
     setSearchType,
   } = useSearch();
+  const { setAllowAccess } = useNavigation();
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
   const navigate = useNavigate();
 
@@ -70,6 +72,7 @@ export const SearchBar = () => {
     // Metemos la función correspondiente y navegamos al ResultList
     setSearchType(config.name);
     config.fetchFn(data[config.name]);
+    setAllowAccess(true);
     navigate("/books/results");
   };
 
@@ -114,7 +117,7 @@ export const SearchBar = () => {
               onClick={handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
                 setSearchType("single title");
-                console.log(data);
+                setAllowAccess(true);
                 navigate("/books/results");
               })}
             >

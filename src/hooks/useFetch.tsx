@@ -89,7 +89,6 @@ export const useFetch = () => {
 
   const fetchFirstBookByTitle = async (title: string) => {
     setLoading(true);
-    setError(null);
     setSearchType("single title");
 
     try {
@@ -278,7 +277,6 @@ export const useFetch = () => {
 
   const fetchRandomBookByAuthor = async (author: string) => {
     setLoading(true);
-    setError(null);
 
     try {
       const book = await randomBookRecByAuthor(author);
@@ -300,7 +298,6 @@ export const useFetch = () => {
 
   const fetchRandomBookByYear = async (year: string) => {
     setLoading(true);
-    setError(null);
 
     try {
       const book = await randomBookRecByYear(year);
@@ -320,7 +317,6 @@ export const useFetch = () => {
 
   const fetchRandomBookBySubject = async (subject: string) => {
     setLoading(true);
-    setError(null);
 
     try {
       const book = await randomBookRecBySubject(subject);
