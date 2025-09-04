@@ -1,15 +1,28 @@
+import { useNavigate } from "react-router-dom";
 import { useFavorite } from "../../context/favorites";
 import { useSearch } from "../../context/search";
+import { useNavigation } from "../../context/navigation";
 
 export const Favorites = () => {
   const { favorites, handleSaveAsFavorite } = useFavorite();
   const { setSelectedBook } = useSearch();
+  const { setClickFromFavorites, setClickFromResultList } = useNavigation();
+  const navigate = useNavigate();
 
   return (
     <div>
       {favorites.map((favorite) => (
         <>
-          <div key={favorite.book_details.key} onClick={() => setSelectedBook(favorite)}>
+          <div
+            key={favorite.book_details.key}
+            style={{ cursor: "pointer" }}
+            onClick={() => {
+              setSelectedBook(favorite);
+              setClickFromFavorites(true);
+              setClickFromResultList(false);
+              navigate("/books/results/book-detail");
+            }}
+          >
             <h2>{favorite.book_details.title}</h2>
             <img src={favorite.cover_image} alt={favorite.book_details.title} />
             <p>{favorite.book_details.author_name.join(", ")}</p>

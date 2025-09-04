@@ -2,6 +2,7 @@ import { useSearch } from "../../context/search";
 import { useState } from "react";
 import { Input } from "../search";
 import { Controller, useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type FormValues = {
   author: string;
@@ -18,6 +19,8 @@ export const Recommendations = () => {
       year: "",
     },
   });
+  const navigate = useNavigate();
+  const location = useLocation();
   const [displayRecButtons, setDisplayRecButtons] = useState<boolean>(false);
   const [displayAuthorRec, setDisplayAuthorRec] = useState<boolean>(false);
   const [displaySubjectRec, setDisplaySubjectRec] = useState<boolean>(false);
@@ -56,6 +59,10 @@ export const Recommendations = () => {
     }
 
     reset();
+
+    if (location.pathname === "/books/results/favorites") {
+      navigate("/books/results/book");
+    }
   };
 
   return (

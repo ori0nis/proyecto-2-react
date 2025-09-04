@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSearch } from "../../context/search";
 import { useFavorite } from "../../context/favorites";
 import { useNavigate } from "react-router-dom";
+import { useNavigation } from "../../context/navigation";
 
 const BOOKS_PER_PAGE = 20;
 
@@ -11,6 +12,7 @@ export const ResultList = () => {
   const { bookList, loading, loadingMore, error, handleFetchMore, setSelectedBook } = useSearch();
   const { favorites, handleSaveAsFavorite } = useFavorite();
   const [shownBooks, setShownBooks] = useState<number>(BOOKS_PER_PAGE);
+  const { setClickFromResultList, setClickFromFavorites } = useNavigation();
   const navigate = useNavigate();
 
   const visibleBooks = bookList.slice(0, shownBooks);
@@ -32,6 +34,8 @@ export const ResultList = () => {
             style={{ cursor: "pointer" }}
             onClick={() => {
               setSelectedBook(book);
+              setClickFromResultList(true);
+              setClickFromFavorites(false);
               navigate("/books/results/book-detail");
             }}
           >

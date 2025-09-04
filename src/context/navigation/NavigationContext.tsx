@@ -1,18 +1,22 @@
 import { createContext, useContext } from "react";
 
 interface NavigationContextProps {
-    allowAccess: boolean;
-    setAllowAccess: (value: boolean) => void;
+  allowAccess: boolean;
+  setAllowAccess: (value: boolean) => void;
+  clickFromResultList: boolean;
+  setClickFromResultList: (value: boolean) => void;
+  clickFromFavorites: boolean;
+  setClickFromFavorites: (value: boolean) => void;
 }
 
 export const NavigationContext = createContext<NavigationContextProps | undefined>(undefined);
 
 export const useNavigation = () => {
-    const context = useContext(NavigationContext);
+  const context = useContext(NavigationContext);
 
-    if(!context){
-        throw new Error("useNavigation must be used within a NavigationProvider")
-    }
+  if (!context) {
+    throw new Error("useNavigation must be used within a NavigationProvider");
+  }
 
-    return context;
-}
+  return context;
+};

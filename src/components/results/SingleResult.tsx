@@ -3,10 +3,12 @@
 import { useNavigate } from "react-router-dom";
 import { useFavorite } from "../../context/favorites";
 import { useSearch } from "../../context/search";
+import { useNavigation } from "../../context/navigation";
 
 export const SingleResult = () => {
   const { book, loading, error, setSelectedBook } = useSearch();
   const { favorites, handleSaveAsFavorite } = useFavorite();
+  const { setClickFromResultList, setClickFromFavorites } = useNavigation();
   const navigate = useNavigate();
 
   if (loading) return <p>Loading...</p>;
@@ -20,6 +22,8 @@ export const SingleResult = () => {
         style={{ cursor: "pointer" }}
         onClick={() => {
           setSelectedBook(book);
+          setClickFromResultList(false);
+          setClickFromFavorites(false);
           navigate("/books/results/book-detail");
         }}
       >

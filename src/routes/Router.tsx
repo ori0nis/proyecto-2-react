@@ -25,8 +25,6 @@ export const Router = ({ children }: Props) => {
                 <Route element={<PrivateGuard />}>
                   <Route path="/books/*" element={<PrivateRouter />} />
                 </Route>
-                {/* //TODO Borrar esto e InnerPage cuando funcione todo */}
-                {/* <Route path="/books/results" element={<InnerPage />} /> */}
               </BrokenRouteAvoider>
               {children}
             </FavoriteProvider>

@@ -2,7 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Input } from "../search";
 import { useState } from "react";
 import { useSearch } from "../../context/search";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type FormValues = {
   title: string;
@@ -25,6 +25,7 @@ export const InnerSearchBar = () => {
     fetchBooksBySubject,
   } = useSearch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
 
@@ -59,6 +60,11 @@ export const InnerSearchBar = () => {
 
   const onSubmit = (data: FormValues) => {
     config.fetchFn(data[config.name]);
+
+    // Si estamos en la ruta de favoritos, navegamos. Si no, no (porque entonces el flujo rompe)
+    if (location.pathname === "/books/results/favorites") {
+      navigate("/books/results/result-list");
+    }
   };
 
   return (
@@ -95,7 +101,7 @@ export const InnerSearchBar = () => {
             onClick={() => {
               handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
-                navigate("/books/results/book")
+                navigate("/books/results/book");
               })();
             }}
           >
