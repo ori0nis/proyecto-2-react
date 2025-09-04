@@ -11,9 +11,10 @@ interface Props {
 
 export const Input = ({ label, value, name, placeholder, required, error, onChange, onBlur }: Props) => {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center text-center">
       <label htmlFor={name}>{label}</label>
       <input
+        className="text-center border"
         value={value}
         name={name}
         placeholder={placeholder}

@@ -11,7 +11,7 @@ type FormValues = {
 };
 
 export const Recommendations = () => {
-  const { fetchRandomBookByAuthor, fetchRandomBookBySubject, fetchRandomBookByYear, setSearchType } = useSearch();
+  const { fetchRandomBookByAuthor, fetchRandomBookBySubject, fetchRandomBookByYear } = useSearch();
   const { handleSubmit, control, reset } = useForm<FormValues>({
     defaultValues: {
       author: "",
@@ -45,24 +45,22 @@ export const Recommendations = () => {
   const onSubmit = (data: FormValues, type: "author" | "subject" | "year") => {
     switch (type) {
       case "author":
-        setSearchType("single title");
         fetchRandomBookByAuthor(data.author);
         break;
       case "subject":
-        setSearchType("single title");
         fetchRandomBookBySubject(data.subject);
         break;
       case "year":
-        setSearchType("single title");
         fetchRandomBookByYear(data.year);
         break;
     }
 
     reset();
 
-    if (location.pathname === "/books/results/favorites") {
+    if (location.pathname === "/books/results/favorites" || location.pathname === "/books/results/result-list") {
       navigate("/books/results/book");
     }
+
   };
 
   return (

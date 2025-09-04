@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { AdvancedSearchForm, SearchBar } from "../../components/search";
 
-export const SearchPage = () => {
+export const SearchLayout = () => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState<boolean>(false);
 
   const toggleAdvancedSearch = () => setShowAdvancedSearch((prev) => !prev);
 
   return (
-    <div>
+    <div className="text-center flex flex-col items-center justify-center w-full min-h-screen bg-amber-100">
       <SearchBar />
 
       <button onClick={toggleAdvancedSearch}>
