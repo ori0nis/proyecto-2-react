@@ -49,7 +49,7 @@ export const AdvancedSearchForm = () => {
 
     fetchAdvancedSearch(searchParams);
     setAllowAccess(true);
-    navigate("/books/results");
+    navigate("/books/results/result-list");
   };
 
   return (

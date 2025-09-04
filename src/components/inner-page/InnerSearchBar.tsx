@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Input } from "../search";
 import { useState } from "react";
 import { useSearch } from "../../context/search";
+import { useNavigate } from "react-router-dom";
 
 type FormValues = {
   title: string;
@@ -22,8 +23,8 @@ export const InnerSearchBar = () => {
     fetchBooksByAuthor,
     fetchBooksByFirstPublishYear,
     fetchBooksBySubject,
-    setSearchType,
   } = useSearch();
+  const navigate = useNavigate();
 
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
 
@@ -57,7 +58,6 @@ export const InnerSearchBar = () => {
   const config = searchConfigs[activeSearch];
 
   const onSubmit = (data: FormValues) => {
-    setSearchType(config.name);
     config.fetchFn(data[config.name]);
   };
 
@@ -95,7 +95,7 @@ export const InnerSearchBar = () => {
             onClick={() => {
               handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
-                setSearchType("single title");
+                navigate("/books/results/book")
               })();
             }}
           >

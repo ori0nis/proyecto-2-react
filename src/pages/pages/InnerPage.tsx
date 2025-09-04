@@ -1,10 +1,10 @@
 /* import { Navigate } from "react-router-dom"; */
 import { Navigate, useNavigate } from "react-router-dom";
-import { InnerAdvancedSearchForm, InnerSearchBar, Recommendations } from "../components/inner-page";
-import { ResultList, SingleResult, Favorites } from "../components/results";
-import { useSearch } from "../context/search";
-import { useNavigation } from "../context/navigation";
-import { BookDetails } from "../components/results/BookDetails";
+import { InnerAdvancedSearchForm, InnerSearchBar, Recommendations } from "../../components/inner-page";
+import { ResultList, SingleResult, Favorites } from "../../components/results";
+import { useSearch } from "../../context/search";
+import { useNavigation } from "../../context/navigation";
+import { BookDetails } from "../../components/results/BookDetails";
 import { useState } from "react";
 
 export const InnerPage = () => {

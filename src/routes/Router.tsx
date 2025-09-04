@@ -1,11 +1,11 @@
 import { BrowserRouter, Route } from "react-router-dom";
 import type { ReactNode } from "react";
-import { BrokenRouteAvoider } from "./index";
-import { SearchPage, InnerPage } from "../pages";
-import { ResultList, SingleResult } from "../components/results";
+import { BrokenRouteAvoider, PrivateGuard } from "./routes-utils";
+import { SearchPage } from "../pages/pages";
 import { SearchProvider } from "../context/search";
-import { NavigationProvider } from "../context/navigation/NavigationProvider";
-import { FavoriteProvider } from "../context/favorites/FavoriteProvider";
+import { NavigationProvider } from "../context/navigation";
+import { FavoriteProvider } from "../context/favorites";
+import { PrivateRouter } from "./PrivateRouter";
 
 interface Props {
   children: ReactNode;
@@ -19,12 +19,14 @@ export const Router = ({ children }: Props) => {
           <NavigationProvider>
             <FavoriteProvider>
               <BrokenRouteAvoider>
+                {/* Ruta pública */}
                 <Route path="/search" element={<SearchPage />} />
-                {/* Path provisional para poder meter el context en recommendations */}
-                <Route path="/books/results" element={<InnerPage />} />
-                {/* Estos paths ahora están mal, se quedan así hasta que la page esté organizada */}
-                <Route path="/result-list" element={<ResultList />} />
-                <Route path="/result" element={<SingleResult />} />
+                {/* Rutas internas (solo accesibles por navegación) */}
+                <Route element={<PrivateGuard />}>
+                  <Route path="/books/*" element={<PrivateRouter />} />
+                </Route>
+                {/* //TODO Borrar esto e InnerPage cuando funcione todo */}
+                {/* <Route path="/books/results" element={<InnerPage />} /> */}
               </BrokenRouteAvoider>
               {children}
             </FavoriteProvider>

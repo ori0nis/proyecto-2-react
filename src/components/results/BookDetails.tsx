@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useFavorite } from "../../context/favorites";
 import { useSearch } from "../../context/search";
 
 export const BookDetails = () => {
   const { selectedBook, setSelectedBook } = useSearch();
   const { favorites, handleSaveAsFavorite } = useFavorite();
+  const navigate = useNavigate();
 
   if (!selectedBook) return null;
 
@@ -13,6 +15,7 @@ export const BookDetails = () => {
         <button
           onClick={() => {
             setSelectedBook(null);
+            navigate("/books/results/result-list");
           }}
         >
           ⬅ Back to results

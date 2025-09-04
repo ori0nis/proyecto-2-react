@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { NotFound } from "./NotFound";
+import { NotFound } from "../NotFound";
 
 interface Props {
   children: ReactNode;

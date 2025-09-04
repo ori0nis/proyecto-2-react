@@ -42,8 +42,8 @@ export const Recommendations = () => {
   const onSubmit = (data: FormValues, type: "author" | "subject" | "year") => {
     switch (type) {
       case "author":
-      setSearchType("single title");  
-      fetchRandomBookByAuthor(data.author);
+        setSearchType("single title");
+        fetchRandomBookByAuthor(data.author);
         break;
       case "subject":
         setSearchType("single title");

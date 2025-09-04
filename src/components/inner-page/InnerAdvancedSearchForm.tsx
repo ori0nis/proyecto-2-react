@@ -2,6 +2,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Input } from "../search";
 import type { AdvancedSearchParams } from "../../models/search";
 import { useSearch } from "../../context/search";
+import { useNavigate } from "react-router-dom";
 
 type FormValues = {
   title?: string;
@@ -22,7 +23,8 @@ export const InnerAdvancedSearchForm = () => {
     },
   });
 
-  const { fetchAdvancedSearch, setSearchType } = useSearch();
+  const { fetchAdvancedSearch } = useSearch();
+  const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
     // Si el user no ha llenado al menos un campo, no le dejamos buscar
@@ -34,8 +36,6 @@ export const InnerAdvancedSearchForm = () => {
       return;
     }
 
-    setSearchType("advanced search");
-
     const searchParams: AdvancedSearchParams = {
       title: data.title || undefined,
       author: data.author || undefined,
@@ -45,6 +45,7 @@ export const InnerAdvancedSearchForm = () => {
     };
 
     fetchAdvancedSearch(searchParams);
+    navigate("/books/results/result-list");
   };
 
   return (

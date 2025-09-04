@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AdvancedSearchForm, SearchBar } from "../components/search";
+import { AdvancedSearchForm, SearchBar } from "../../components/search";
 
 export const SearchPage = () => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState<boolean>(false);

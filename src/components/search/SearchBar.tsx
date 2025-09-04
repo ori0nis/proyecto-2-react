@@ -32,7 +32,6 @@ export const SearchBar = () => {
     fetchBooksByAuthor,
     fetchBooksByFirstPublishYear,
     fetchBooksBySubject,
-    setSearchType,
   } = useSearch();
   const { setAllowAccess } = useNavigation();
   const [activeSearch, setActiveSearch] = useState<ActiveSearch>("title");
@@ -70,10 +69,9 @@ export const SearchBar = () => {
 
   const onSubmit = (data: FormValues) => {
     // Metemos la función correspondiente y navegamos al ResultList
-    setSearchType(config.name);
     config.fetchFn(data[config.name]);
     setAllowAccess(true);
-    navigate("/books/results");
+    navigate("/books/results/result-list");
   };
 
   return (
@@ -116,9 +114,8 @@ export const SearchBar = () => {
               // Este submit se hace manualmente para evitar dificultades
               onClick={handleSubmit((data) => {
                 fetchFirstBookByTitle(data.title);
-                setSearchType("single title");
                 setAllowAccess(true);
-                navigate("/books/results");
+                navigate("/books/results/book");
               })}
             >
               Quick search
