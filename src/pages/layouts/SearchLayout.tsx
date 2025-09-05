@@ -13,7 +13,7 @@ export const SearchLayout = () => {
         <SearchBar />
       </div>
 
-      <div className="py-5 text-sm text-center">
+      <div className="py-4 text-sm text-center">
         {showAdvancedSearch ? (
           <>
             <p>Hide advanced search</p>

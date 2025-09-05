@@ -12,8 +12,8 @@ interface Props {
 
 export const Input = ({ label, value, name, className, placeholder, required, error, onChange, onBlur }: Props) => {
   return (
-    <div className="text-center w-full py-1">
-      <label className="text-md" htmlFor={name}>{label}</label>
+    <div className="w-full py-1">
+      <label className="text-sm" htmlFor={name}>{label}</label>
       <input
         className={className}
         value={value}
