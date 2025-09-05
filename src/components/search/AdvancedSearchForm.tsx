@@ -23,8 +23,8 @@ export const AdvancedSearchForm = () => {
       language: "",
     },
   });
-  const { fetchAdvancedSearch, setSearchType } = useSearch();
-  const {setAllowAccess} = useNavigation();
+  const { fetchAdvancedSearch } = useSearch();
+  const { setAllowAccess } = useNavigation();
   const navigate = useNavigate();
 
   const onSubmit = (data: FormValues) => {
@@ -36,8 +36,6 @@ export const AdvancedSearchForm = () => {
       alert("Please fill in at least one field to search");
       return;
     }
-
-    setSearchType("advanced search");
 
     const searchParams: AdvancedSearchParams = {
       title: data.title || undefined,
@@ -53,7 +51,7 @@ export const AdvancedSearchForm = () => {
   };
 
   return (
-    <div>
+    <div className="text-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Title */}
         <Controller
@@ -64,7 +62,8 @@ export const AdvancedSearchForm = () => {
               label="Title: "
               value={field.value}
               name="title"
-              placeholder="Example: The Hobbit"
+              className="px-2 border border-[var(--border-gray-byblos)] rounded-lg h-6.5 text-sm"
+              placeholder=" Example: The Hobbit"
               required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -82,7 +81,8 @@ export const AdvancedSearchForm = () => {
               label="Author: "
               value={field.value}
               name="author"
-              placeholder="Example: J.R.R Tolkien"
+              className="px-2 border border-[var(--border-gray-byblos)] rounded-lg h-6.5 text-sm"
+              placeholder=" Example: J.R.R Tolkien"
               required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -100,6 +100,7 @@ export const AdvancedSearchForm = () => {
               label="Year: "
               value={field.value}
               name="year"
+              className="px-2 border border-[var(--border-gray-byblos)] rounded-lg h-6.5 text-sm"
               required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -117,6 +118,7 @@ export const AdvancedSearchForm = () => {
               label="Genre: "
               value={field.value}
               name="subject"
+              className="px-2 border border-[var(--border-gray-byblos)] rounded-lg h-6.5 text-sm"
               required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -134,6 +136,7 @@ export const AdvancedSearchForm = () => {
               label="Language: "
               value={field.value}
               name="language"
+              className="text-center border border-[var(--border-gray-byblos)] rounded-lg h-6"
               required={false}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -141,7 +144,15 @@ export const AdvancedSearchForm = () => {
             />
           )}
         />
-        <button type="submit">Search</button>
+        <div className="py-2">
+          <button
+          type="submit"
+          className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+        >
+          Search
+        </button>
+        </div>
+        
       </form>
     </div>
   );

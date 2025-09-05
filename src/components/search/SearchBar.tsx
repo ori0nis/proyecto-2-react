@@ -76,28 +76,25 @@ export const SearchBar = () => {
 
   return (
     <>
-      <div className="flex flex-col w-full max-w-3xl h-fit gap-8 items-center justify-center bg-amber-800">
-        <h1>Byblos</h1>
-        {/* Botones para abrir diferentes búsquedas */}
-        <div className="flex w-full justify-around bg-green-500">
-          <button className="cursor-pointer border rounded-lg px-4 py-0.5" onClick={() => setActiveSearch("title")}>Search by title</button>
-          <button className="cursor-pointer border rounded-lg px-4 py-0.5" onClick={() => setActiveSearch("author")}>Search by author</button>
-          <button className="cursor-pointer border rounded-lg px-4 py-0.5" onClick={() => setActiveSearch("year")}>Search by publish year</button>
-          <button className="cursor-pointer border rounded-lg px-4 py-0.5" onClick={() => setActiveSearch("subject")}>Search by genre</button>
-        </div>
+      <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-8 justify-items-center items-center">
+        <h1 className="text-7xl">BYBLOS</h1>
+        <h2 className="italic">"What do you wanna read today?"</h2>
 
         {/* Title es la búsqueda que sale por default */}
-        <div className="text-center bg-blue-700 py-5">
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col items-center justify-center text-center gap-5">
+        <div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col sm:flex-row w-full justify-center items-center"
+          >
             <Controller
               name={config.name}
               control={control}
               rules={{ required: `${config.name} is required` }} //TODO: Maquetar bien este error
               render={({ field, fieldState }) => (
                 <Input
-                  label={config.label}
                   value={field.value}
                   name={config.name}
+                  className="min-w-[300px] border border-[var(--border-gray-byblos)] rounded-lg h-11 px-3"
                   placeholder={config.placeholder}
                   required={true}
                   onChange={field.onChange}
@@ -106,24 +103,61 @@ export const SearchBar = () => {
                 />
               )}
             />
-            <button type="submit" className="cursor-pointer border rounded-lg px-4 py-0.5">Search</button>
-
-            {/* Quick search solo está disponible para búsqueda por título */}
-            {activeSearch === "title" && (
+            <div className="flex w-fit px-3 py-2 gap-2">
               <button
-                type="button"
-                className="cursor-pointer border rounded-lg px-4 py-0.5"
-                // Este submit se hace manualmente para evitar dificultades
-                onClick={handleSubmit((data) => {
-                  fetchFirstBookByTitle(data.title);
-                  setAllowAccess(true);
-                  navigate("/books/results/book");
-                })}
+                type="submit"
+                className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
               >
-                Quick search
+                Search
               </button>
-            )}
+
+              {/* Quick search solo está disponible para búsqueda por título */}
+              {activeSearch === "title" && (
+                <button
+                  type="button"
+                  className="cursor-pointer border border-[var(--border-gray-byblos)] bg-red-300 rounded-lg min-w-[120px] px-4 py-0.5 text-sm"
+                  // Este submit se hace manualmente para evitar dificultades
+                  //
+                  onClick={handleSubmit((data) => {
+                    fetchFirstBookByTitle(data.title);
+                    setAllowAccess(true);
+                    navigate("/books/results/book");
+                  })}
+                >
+                  Quick search
+                </button>
+              )}
+            </div>
           </form>
+        </div>
+        {/* Botones para abrir diferentes búsquedas */}
+        <div /* className="flex flex-wrap w-full justify-center items-center gap-2" */
+          className="grid grid-cols-[140px_140px] gap-3"
+        >
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("title")}
+          >
+            Search by title
+          </button>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("author")}
+          >
+            Search by author
+          </button>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg not-[]:px-4 py-0.5"
+            onClick={() => setActiveSearch("year")}
+          >
+            Search by publish year
+          </button>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("subject")}
+          >
+            Search by genre
+          </button>
         </div>
       </div>
     </>

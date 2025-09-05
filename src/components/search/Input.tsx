@@ -2,6 +2,7 @@ interface Props {
   label?: string;
   value: string;
   name: string;
+  className?: string;
   placeholder?: string;
   required?: boolean;
   error?: string;
@@ -9,12 +10,12 @@ interface Props {
   onBlur: () => void;
 }
 
-export const Input = ({ label, value, name, placeholder, required, error, onChange, onBlur }: Props) => {
+export const Input = ({ label, value, name, className, placeholder, required, error, onChange, onBlur }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center">
-      <label htmlFor={name}>{label}</label>
+    <div className="text-center w-full py-1">
+      <label className="text-md" htmlFor={name}>{label}</label>
       <input
-        className="text-center border"
+        className={className}
         value={value}
         name={name}
         placeholder={placeholder}
