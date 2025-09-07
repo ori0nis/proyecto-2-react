@@ -5,6 +5,8 @@
 @theme {
   --font-sans: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif;
   --border-gray-byblos: #6B7280;
+  /* Breakpoint para pantallas de móvil pequeñas */
+  --breakpoint-xs: 450px;
 
   --animate-slide-in: slideInDownwards 0.5s ease-in-out forwards;
   --animate-slide-out: slideOutUpwards 0.5s ease-in-out forwards;
