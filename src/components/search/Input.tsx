@@ -23,7 +23,7 @@ export const Input = ({ label, value, name, className, placeholder, required, er
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
       />
-      {error && <p>{error}</p>}
+      {error && <p className="text-center text-sm text-red-500">{error}</p>}
     </div>
   );
 };

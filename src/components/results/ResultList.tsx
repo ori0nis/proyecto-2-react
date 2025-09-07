@@ -26,39 +26,64 @@ export const ResultList = () => {
   if (bookList.length === 0) return <p>No books found</p>;
 
   return (
-    <div>
-      {visibleBooks.map((book) => (
-        <>
-          <div
-            key={book.book_details.key}
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setSelectedBook(book);
-              setClickFromResultList(true);
-              setClickFromFavorites(false);
-              navigate("/books/results/book-detail");
-            }}
+    <>
+      <div className="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-1">
+        {visibleBooks.map((book) => (
+          <div className="cursor-pointer text-center border border-[var(--border-gray-byblos)] rounded-lg p-2 flex flex-col items-center justify-center gap-1 hover:scale-105 transition-transform duration-300 ease-in-out">
+            <div
+              key={book.book_details.key}
+              className="flex flex-col items-center gap-0.5 text-center"
+              onClick={() => {
+                setSelectedBook(book);
+                setClickFromResultList(true);
+                setClickFromFavorites(false);
+                navigate("/books/results/book-detail");
+              }}
+            >
+              <img
+                src={book.cover_image}
+                alt={book.book_details.title}
+                className="w-60 h-72 object-contain mx-auto"
+              ></img>
+              <h3 className="text-lg font-semibold">{book.book_details.title}</h3>
+              <p className="text-sm">{book.book_details.author_name.join(", ")}</p>{" "}
+              {/* //TODO: Vigilar arrays con demasiados autores */}
+              <p className="text-sm">{book.book_details.first_publish_year}</p>
+            </div>
+            <div>
+              <button
+                onClick={() => handleSaveAsFavorite(book)}
+                className="cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg text-xs p-1"
+              >
+                {favorites.some((fav) => fav.book_details.key === book.book_details.key)
+                  ? "Remove from favorites"
+                  : "Save as favorite"}
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="flex flex-col items-center mt-4 w-full">
+        {canShowMore && (
+          <button
+            onClick={handleShowMore}
+            className="cursor-pointer text-center p-2 mt-2 border border-[var(--border-gray-byblos)] rounded-lg"
           >
-            <h2>{book.book_details.title}</h2>
-            <img src={book.cover_image} alt={book.book_details.title}></img>
-            <p>{book.book_details.author_name.join(", ")}</p>
-            <p>{book.book_details.first_publish_year}</p>
-          </div>
-          <div>
-            <button onClick={() => handleSaveAsFavorite(book)}>
-              {favorites.some((fav) => fav.book_details.key === book.book_details.key)
-                ? "Remove from favorites"
-                : "Save as favorite"}
-            </button>
-          </div>
-        </>
-      ))}
+            Show more books
+          </button>
+        )}
 
-      {canShowMore && <button onClick={handleShowMore}>Show more books</button>}
+        {canFetchMore && (
+          <button
+            onClick={handleFetchMore}
+            className="cursor-pointer text-center p-2 mt-2 border border-[var(--border-gray-byblos)] rounded-lg"
+          >
+            Fetch more books
+          </button>
+        )}
 
-      {canFetchMore && <button onClick={handleFetchMore}>Fetch more books</button>}
-
-      {loadingMore && <p>Loading more books...</p>}
-    </div>
+        {loadingMore && <p className="mt-2">Loading more books...</p>}
+      </div>
+    </>
   );
 };

@@ -89,7 +89,7 @@ export const SearchBar = () => {
             <Controller
               name={config.name}
               control={control}
-              rules={{ required: `${config.name} is required` }} //TODO: Maquetar bien este error
+              rules={{ required: `${config.name} is required` }}
               render={({ field, fieldState }) => (
                 <Input
                   value={field.value}
