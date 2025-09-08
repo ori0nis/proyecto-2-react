@@ -29,7 +29,7 @@ export const SingleResult = () => {
       >
         <h2>{book.book_details.title}</h2>
         {book.cover_image && <img src={book.cover_image} alt={book.book_details.title}></img>}
-        <p>{book.book_details.author_name.join(", ")}</p>
+        <p>{book.book_details.author_name.slice(0, 5).join(", ")}</p>
         <p>{book.book_details.first_publish_year}</p>
       </div>
       <div>

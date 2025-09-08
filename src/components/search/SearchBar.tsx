@@ -117,7 +117,6 @@ export const SearchBar = () => {
                   type="button"
                   className="cursor-pointer border border-[var(--border-gray-byblos)] bg-red-300 rounded-lg min-w-[120px] px-4 py-0.5 text-sm"
                   // Este submit se hace manualmente para evitar dificultades
-                  //
                   onClick={handleSubmit((data) => {
                     fetchFirstBookByTitle(data.title);
                     setAllowAccess(true);
@@ -131,9 +130,7 @@ export const SearchBar = () => {
           </form>
         </div>
         {/* Botones para abrir diferentes búsquedas */}
-        <div /* className="flex flex-wrap w-full justify-center items-center gap-2" */
-          className="grid grid-cols-[140px_140px] gap-3"
-        >
+        <div className="grid grid-cols-[140px_140px] gap-3">
           <button
             className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
             onClick={() => setActiveSearch("title")}
