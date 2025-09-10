@@ -19,7 +19,7 @@ export const SingleResult = () => {
     <>
       <div
         key={book.book_details.key}
-        style={{ cursor: "pointer" }}
+        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
         onClick={() => {
           setSelectedBook(book);
           setClickFromResultList(false);
@@ -27,17 +27,37 @@ export const SingleResult = () => {
           navigate("/books/results/book-detail");
         }}
       >
-        <h2>{book.book_details.title}</h2>
-        {book.cover_image && <img src={book.cover_image} alt={book.book_details.title}></img>}
-        <p>{book.book_details.author_name.slice(0, 5).join(", ")}</p>
-        <p>{book.book_details.first_publish_year}</p>
-      </div>
-      <div>
-        <button onClick={() => handleSaveAsFavorite(book)}>
-          {favorites.some((fav) => fav.book_details.key === book.book_details.key)
-            ? "Remove from favorites"
-            : "Save as favorite"}
-        </button>
+        <div className="flex flex-col items-center gap-4 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg">
+          <img
+            src={book.cover_image}
+            alt={book.book_details.title}
+            className="w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"
+          ></img>
+          <h2>{book.book_details.title}</h2>
+          <p>{book.book_details.author_name.slice(0, 5).join(", ")}</p>
+          <p>{book.book_details.first_publish_year}</p>
+        </div>
+
+        {/* Botón de favorito */}
+        <div className="mt-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSaveAsFavorite(book);
+            }}
+            className="cursor-pointer text-xs p-1"
+          >
+            {favorites.some((fav) => fav.book_details.key === book.book_details.key) ? (
+              <svg width="28" height="28" aria-hidden="true" className="text-red-500">
+                <use href="/assets/spritesheet.svg#icon-heart-filled"></use>
+              </svg>
+            ) : (
+              <svg width="28" height="28" aria-hidden="true" className="text-red-500">
+                <use href="/assets/spritesheet.svg#icon-heart-outline"></use>
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
     </>
   );

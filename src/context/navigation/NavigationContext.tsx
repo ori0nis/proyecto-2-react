@@ -7,6 +7,8 @@ interface NavigationContextProps {
   setClickFromResultList: (value: boolean) => void;
   clickFromFavorites: boolean;
   setClickFromFavorites: (value: boolean) => void;
+  previousRoute: string;
+  setPreviousRoute: (route: string) => void;
 }
 
 export const NavigationContext = createContext<NavigationContextProps | undefined>(undefined);

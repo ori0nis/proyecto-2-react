@@ -9,7 +9,7 @@ export const ByblosLayout = () => {
 
   return (
     <div className="grid sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr] h-screen bg-[var(--background-color-byblos)]">
-      {/* Header - ocupa todo el ancho */}
+      {/* Header */}
       <div className="hidden xs:block col-span-2 flex flex-col items-center justify-center text-center bg-blue-300 w-full p-4">
         <InnerSearchBar />
         <button onClick={toggleAdvancedSearch} className="mt-2">

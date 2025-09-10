@@ -57,9 +57,10 @@ export const ResultList = () => {
         {visibleBooks.map((book) => (
           <div
             key={book.book_details.key}
-            className={`flex flex-col items-center gap-0.5 text-center cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg p-2 hover:scale-105 transition-transform duration-300 ease-in-out
-            ${listView ? "flex flex-row items-center gap-4" : ""}`}
+            className={`flex flex-col items-center gap-2 text-center cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out
+  ${listView ? "flex-row items-center gap-4" : ""}`}
           >
+            {/* Libro */}
             <div
               onClick={() => {
                 setSelectedBook(book);
@@ -68,13 +69,15 @@ export const ResultList = () => {
                 navigate("/books/results/book-detail");
               }}
               className={
-                listView ? "flex items-center gap-4 flex-1 justify-between" : "flex flex-col items-center gap-0.5"
+                listView
+                  ? "flex items-center gap-4 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg p-2"
+                  : "flex flex-col items-center gap-0.5 border border-[var(--border-gray-byblos)] rounded-lg p-2"
               }
             >
               <img
                 src={book.cover_image}
                 alt={book.book_details.title}
-                className={listView ? "w-24 h-32 object-contain" : "w-50 h-62 object-contain mx-auto"}
+                className={listView ? "w-24 h-32 object-contain" : "w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"}
               />
               <div className="text-white">
                 <h3
@@ -97,16 +100,27 @@ export const ResultList = () => {
                   {book.book_details.first_publish_year}
                 </p>
               </div>
-              
-              {/* Botón de favorito */}
-              <div className="mt-2">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleSaveAsFavorite(book);
-                  }}
-                  className="cursor-pointer text-xs p-1"
-                >
+
+              {/* Botón de favorito dentro del borde en vista lista */}
+              {listView && (
+                <button onClick={() => handleSaveAsFavorite(book)} className="cursor-pointer text-xs p-1">
+                  {favorites.some((fav) => fav.book_details.key === book.book_details.key) ? (
+                    <svg width="28" height="28" aria-hidden="true" className="text-red-500">
+                      <use href="/assets/spritesheet.svg#icon-heart-filled"></use>
+                    </svg>
+                  ) : (
+                    <svg width="28" height="28" aria-hidden="true" className="text-red-500">
+                      <use href="/assets/spritesheet.svg#icon-heart-outline"></use>
+                    </svg>
+                  )}
+                </button>
+              )}
+            </div>
+
+            {/* Botón de favorito fuera del borde en vista grid */}
+            {!listView && (
+              <div>
+                <button onClick={() => handleSaveAsFavorite(book)} className="cursor-pointer text-xs p-1">
                   {favorites.some((fav) => fav.book_details.key === book.book_details.key) ? (
                     <svg width="28" height="28" aria-hidden="true" className="text-red-500">
                       <use href="/assets/spritesheet.svg#icon-heart-filled"></use>
@@ -118,7 +132,7 @@ export const ResultList = () => {
                   )}
                 </button>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>

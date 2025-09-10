@@ -9,6 +9,7 @@ export const NavigationProvider = ({ children }: Props) => {
   const [allowAccess, setAllowAccess] = useState(false);
   const [clickFromResultList, setClickFromResultList] = useState(false);
   const [clickFromFavorites, setClickFromFavorites] = useState(false);
+  const [previousRoute, setPreviousRoute] = useState<string>("");
 
   return (
     <NavigationContext.Provider
@@ -19,6 +20,8 @@ export const NavigationProvider = ({ children }: Props) => {
         setClickFromResultList,
         clickFromFavorites,
         setClickFromFavorites,
+        previousRoute,
+        setPreviousRoute
       }}
     >
       {children}

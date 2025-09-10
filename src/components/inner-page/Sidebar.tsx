@@ -40,8 +40,9 @@ export const Sidebar = () => {
   };
 
   return (
-    <div className="xs:w-[200px] py-4 px-4 rounded-lg flex flex-col gap-4">
-      <h2 className="hidden xs:block text-xl mt-3 font-semibold cursor-default">MENU</h2>
+    /* Títulos, dependiendo de la vista */
+    <div className="xs:w-[200px] h-fit py-4 px-4 rounded-lg flex flex-col gap-4 xs:gap-0">
+      <h2 className="hidden xs:block text-xl mt-3 pb-5 font-semibold cursor-default">MENU</h2>
       <hr className="xs:block hidden border-t border-gray-400" />
 
       <h2 className="block xs:hidden text-5xl text-center font-medium">
@@ -53,14 +54,17 @@ export const Sidebar = () => {
         />
         BLOS
       </h2>
-      <hr className="block xs:hidden border-t border-gray-400" />
 
+      {/* Botones */}
       <div className="flex xs:flex-col flex-row gap-4 justify-center">
         <HomeButton />
+        <hr className="border-t border-gray-400" />
         <FavoritesButton />
+        <hr className="border-t border-gray-400" />
         <RecommendationsButton toggle={() => setShowRecommendations((prev) => !prev)} />
       </div>
 
+      {/* Recomendaciones, solo cuando se pulsa el botón */}
       {showRecommendations && (
         <RecommendationsList
           displayAuthorRec={displayAuthorRec}
