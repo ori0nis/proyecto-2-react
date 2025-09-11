@@ -71,7 +71,6 @@ export const InnerSearchBar = () => {
   return (
     <>
       <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-1 justify-items-center items-center mx-auto">
-        {/* <h1 className="text-6xl">BYBLOS</h1> */}
         <ByblosLogo/>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full justify-center items-center">
           <Controller

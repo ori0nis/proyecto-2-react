@@ -78,10 +78,10 @@ export const SearchBar = () => {
   return (
     <>
       <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-8 justify-items-center items-center">
-        {/* <h1 className="text-7xl">BYBLOS</h1> */}
-        {/*  */}
+        {/* Logo de Byblos */}
         <ByblosLogo />
-        {/*  */}
+
+        {/* Subtítulo */}
         <h2 className="italic">"What do you wanna read today?"</h2>
 
         {/* Title es la búsqueda que sale por default */}
