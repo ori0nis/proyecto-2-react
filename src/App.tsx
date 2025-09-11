@@ -1,5 +1,9 @@
 const App = () => {
-  return <></>;
+  return (
+    <>
+      {/* Ahora los componentes se devuelven por el Router */}
+    </>
+  );
 };
 
 export default App;
