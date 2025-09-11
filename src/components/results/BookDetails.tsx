@@ -29,24 +29,24 @@ export const BookDetails = () => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-start pt-0 xs:pt-4">
+    <div className="w-full h-fit flex flex-col items-start pt-0 xs:pt-2">
       {/* Botón de volver */}
       <button onClick={handleBack} className="self-start flex items-center gap-1 text-sm font-medium">
         <ArrowLeft className="w-5 h-5" /> Back to results
       </button>
 
-      <div>
-        <h2 className="mx-auto text-center text-2xl pt-4">Book details</h2>
+      <div className="mx-auto">
+        <h2 className="mx-auto text-center text-2xl pt-2">Book details</h2>
 
         {/* Libro */}
         <div
           key={selectedBook.book_details.key}
-          className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-6 items-center p-6 rounded-lg mt-6 border border-[var(--border-gray-byblos)]"
+          className="grid grid-cols-1 sm:grid-cols-[1fr_1fr] gap-4 xs:gap-10 items-center p-6 rounded-lg mt-6 border border-[var(--border-gray-byblos)]"
         >
           <img
             src={selectedBook.cover_image}
             alt={selectedBook.book_details.title}
-            className="w-40 h-auto object-contain mx-auto sm:mx-0"
+            className="xs:w-55 w-40 h-auto object-contain mx-auto sm:mx-0"
           />
           <div className="flex flex-col gap-2 items-center sm:items-start">
             <h2 className="text-xl font-bold text-center">{selectedBook.book_details.title}</h2>

@@ -4,6 +4,7 @@ import { useSearch } from "../../context/search";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ByblosLogo } from "../gsap";
 
 type FormValues = { author: string; subject: string; year: string };
 
@@ -41,24 +42,19 @@ export const Sidebar = () => {
 
   return (
     /* Títulos, dependiendo de la vista */
-    <div className="xs:w-[200px] h-fit px-4 rounded-lg flex flex-col gap-4 xs:gap-0">
+    <div className="xs:w-[200px] h-fit px-4 rounded-lg flex flex-col gap-1 xs:gap-0">
       {/* Título de menú */}
       <h2 className="hidden xs:block text-xl font-semibold cursor-default">MENU</h2>
       <hr className="xs:block hidden border-t border-gray-400" />
 
-      {/* Título de Byblos */}
-      <h2 className="block xs:hidden text-5xl text-center font-medium">
-        B
-        <img
-          className="inline w-12 h-12 mb-3 object-cover bg-gray-200 border-0 rounded-lg"
-          src="../../../images/byblos-256.png"
-          alt="Byblos Logo"
-        />
-        BLOS
-      </h2>
+      {/* Logo de Byblos */}
+      <div className="mx-auto transform scale-75 mt-2">
+        <ByblosLogo/>
+      </div>
+
 
       {/* Botones */}
-      <div className="flex xs:flex-col flex-row gap-2 justify-center">
+      <div className="flex xs:flex-col flex-row gap-2 justify-center items-center mb-1">
         <HomeButton />
         <hr className="border-t border-gray-400" />
         <FavoritesButton />

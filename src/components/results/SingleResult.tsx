@@ -19,7 +19,7 @@ export const SingleResult = () => {
     <div className="h-full pb-70 xs:pb-0 xs:h-auto">
       <div
         key={book.book_details.key}
-        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out w-fit mx-auto sm:m-0"
+        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2  w-fit mx-auto sm:m-0"
         onClick={() => {
           setSelectedBook(book);
           setClickFromResultList(false);
@@ -27,7 +27,7 @@ export const SingleResult = () => {
           navigate("/books/results/book-detail");
         }}
       >
-        <div className="flex flex-col items-center gap-1 p-2 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg">
+        <div className="flex flex-col items-center gap-1 p-2 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out">
           <img
             src={book.cover_image}
             alt={book.book_details.title}
@@ -45,7 +45,7 @@ export const SingleResult = () => {
               e.stopPropagation();
               handleSaveAsFavorite(book);
             }}
-            className="cursor-pointer text-xs p-1"
+            className="cursor-pointer text-xs p-1 mt-2"
           >
             {favorites.some((fav) => fav.book_details.key === book.book_details.key) ? (
               <svg width="28" height="28" aria-hidden="true" className="text-red-500">

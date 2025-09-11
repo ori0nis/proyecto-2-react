@@ -3,6 +3,7 @@ import { Input } from "../search";
 import { useState } from "react";
 import { useSearch } from "../../context/search";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ByblosLogo } from "../gsap";
 
 type FormValues = {
   title: string;
@@ -69,8 +70,9 @@ export const InnerSearchBar = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-4 justify-items-center items-center mx-auto">
-        <h1 className="text-6xl">BYBLOS</h1>
+      <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-1 justify-items-center items-center mx-auto">
+        {/* <h1 className="text-6xl">BYBLOS</h1> */}
+        <ByblosLogo/>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full justify-center items-center">
           <Controller
             name={config.name}

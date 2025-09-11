@@ -27,7 +27,7 @@ export const ResultList = () => {
   return (
     <>
       {/* Botones de tipo de vista para móvil */}
-      <div className="flex w-fit mb-2 mx-auto gap-6">
+      <div className="flex w-fit mb-2 mx-auto gap-6 h-fit">
         <button
           onClick={() => setListView(true)}
           className={`block xs:hidden mx-auto cursor-pointer ${listView ? "text-red-500" : ""}`}
@@ -57,7 +57,7 @@ export const ResultList = () => {
         {visibleBooks.map((book) => (
           <div
             key={book.book_details.key}
-            className={`flex flex-col items-center gap-2 text-center cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out
+            className={`flex flex-col items-center gap-2 text-center 
             ${listView ? "flex-row items-center gap-4" : ""}`}
           >
             
@@ -72,7 +72,7 @@ export const ResultList = () => {
               className={
                 listView
                   ? "flex items-center gap-4 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg p-2"
-                  : "flex flex-col items-center gap-0.5 border border-[var(--border-gray-byblos)] rounded-lg p-2"
+                  : "flex flex-col items-center gap-0.5 border border-[var(--border-gray-byblos)] rounded-lg p-2 cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out"
               }
             >
               <img

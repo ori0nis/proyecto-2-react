@@ -49,100 +49,104 @@ export const InnerAdvancedSearchForm = () => {
   };
 
   return (
-    <div className="flex justify-center w-fit">
+    <div className="text-center w-fit">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-[1fr_1fr] gap-2 p-3 rounded-lg border border-[var(--border-gray-byblos)]">
-          {/* Columna izquierda: Title, Author, Year */}
-          <div className="flex flex-col gap-2">
-            <Controller
+        {/* Title */}
+        <Controller
+          name="title"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              label="Title: "
+              value={field.value}
               name="title"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Input
-                  label="Title: "
-                  value={field.value}
-                  name="title"
-                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
-                  placeholder="Example: The Hobbit"
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error?.message}
-                />
-              )}
+              className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+              placeholder="Example: The Hobbit"
+              required={false}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
             />
-            <Controller
+          )}
+        />
+
+        {/* Author */}
+        <Controller
+          name="author"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              label="Author: "
+              value={field.value}
               name="author"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Input
-                  label="Author: "
-                  value={field.value}
-                  name="author"
-                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
-                  placeholder="Example: J.R.R Tolkien"
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error?.message}
-                />
-              )}
+              className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+              placeholder="Example: J.R.R Tolkien"
+              required={false}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
             />
-            <Controller
+          )}
+        />
+
+        {/* Year */}
+        <Controller
+          name="year"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              label="Year: "
+              value={field.value}
               name="year"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Input
-                  label="Year: "
-                  value={field.value}
-                  name="year"
-                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error?.message}
-                />
-              )}
+              className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+              required={false}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
             />
-          </div>
+          )}
+        />
 
-          {/* Columna derecha: Subject, Language */}
-          <div className="flex flex-col gap-2">
-            <Controller
+        {/* Subject */}
+        <Controller
+          name="subject"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              label="Genre: "
+              value={field.value}
               name="subject"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Input
-                  label="Genre: "
-                  value={field.value}
-                  name="subject"
-                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error?.message}
-                />
-              )}
+              className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+              required={false}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
             />
-            <Controller
-              name="language"
-              control={control}
-              render={({ field, fieldState }) => (
-                <Input
-                  label="Language: "
-                  value={field.value}
-                  name="language"
-                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
-                  onChange={field.onChange}
-                  onBlur={field.onBlur}
-                  error={fieldState.error?.message}
-                />
-              )}
-            />
-          </div>
-        </div>
+          )}
+        />
 
-        {/* Submit */}
-        <div className="col-span-2 flex justify-center pt-2">
+        {/* Language */}
+        <Controller
+          name="language"
+          control={control}
+          render={({ field, fieldState }) => (
+            <Input
+              label="Language: "
+              value={field.value}
+              name="language"
+              className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+              required={false}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              error={fieldState.error?.message}
+            />
+          )}
+        />
+
+        <div className="py-0.5">
           <button
             type="submit"
-            className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
+            className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
           >
             Search
           </button>

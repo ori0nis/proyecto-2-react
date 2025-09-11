@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useNavigation } from "../../context/navigation";
 import { useSearch } from "../../context/search";
+import { ByblosLogo } from "../gsap";
 
 type FormValues = {
   title: string;
@@ -77,7 +78,10 @@ export const SearchBar = () => {
   return (
     <>
       <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-8 justify-items-center items-center">
-        <h1 className="text-7xl">BYBLOS</h1>
+        {/* <h1 className="text-7xl">BYBLOS</h1> */}
+        {/*  */}
+        <ByblosLogo />
+        {/*  */}
         <h2 className="italic">"What do you wanna read today?"</h2>
 
         {/* Title es la búsqueda que sale por default */}
@@ -131,7 +135,7 @@ export const SearchBar = () => {
             </div>
           </form>
         </div>
-        
+
         {/* Botones para abrir diferentes búsquedas */}
         <div className="grid grid-cols-[140px_140px] gap-3">
           <button

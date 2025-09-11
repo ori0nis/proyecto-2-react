@@ -14,7 +14,7 @@ export const ByblosLayout = () => {
       <div className="hidden xs:flex col-span-2 flex-col items-center justify-center text-center w-full p-2">
         {/* Contenedor que pasa a grid cuando se muestra advanced */}
         <div
-          className={`w-fit grid gap-2 transition-all duration-500 ${
+          className={`w-fit grid gap-6 transition-all duration-500 ${
             showAdvancedSearch ? "grid-cols-[1fr_auto] items-center" : "grid-cols-1"
           }`}
         >
