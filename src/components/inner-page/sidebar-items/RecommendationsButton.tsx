@@ -7,7 +7,7 @@ export const RecommendationsButton = ({ toggle }: Props) => {
   return (
     <NavLink
       to="#"
-      className="flex flex-col xs:flex-row py-2 px-2.5 mb-2 cursor-pointer hover:bg-amber-200 hover:rounded-lg"
+      className="flex flex-col xs:flex-row py-2 px-2.5 cursor-pointer hover:bg-amber-200 hover:rounded-lg"
       onClick={toggle}
     >
       {" "}

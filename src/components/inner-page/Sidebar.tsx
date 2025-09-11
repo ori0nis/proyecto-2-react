@@ -41,10 +41,12 @@ export const Sidebar = () => {
 
   return (
     /* Títulos, dependiendo de la vista */
-    <div className="xs:w-[200px] h-fit py-4 px-4 rounded-lg flex flex-col gap-4 xs:gap-0">
-      <h2 className="hidden xs:block text-xl mt-3 pb-5 font-semibold cursor-default">MENU</h2>
+    <div className="xs:w-[200px] h-fit px-4 rounded-lg flex flex-col gap-4 xs:gap-0">
+      {/* Título de menú */}
+      <h2 className="hidden xs:block text-xl font-semibold cursor-default">MENU</h2>
       <hr className="xs:block hidden border-t border-gray-400" />
 
+      {/* Título de Byblos */}
       <h2 className="block xs:hidden text-5xl text-center font-medium">
         B
         <img
@@ -56,7 +58,7 @@ export const Sidebar = () => {
       </h2>
 
       {/* Botones */}
-      <div className="flex xs:flex-col flex-row gap-4 justify-center">
+      <div className="flex xs:flex-col flex-row gap-2 justify-center">
         <HomeButton />
         <hr className="border-t border-gray-400" />
         <FavoritesButton />

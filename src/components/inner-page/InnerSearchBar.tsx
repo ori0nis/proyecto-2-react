@@ -62,53 +62,88 @@ export const InnerSearchBar = () => {
     config.fetchFn(data[config.name]);
 
     // Si estamos en la ruta de favoritos, navegamos. Si no, no (porque entonces el flujo rompe)
-    if (location.pathname === "/books/results/favorites") {
+    if (location.pathname === "/books/results/favorites" || location.pathname === "/books/results/book") {
       navigate("/books/results/result-list");
     }
   };
 
   return (
-    <div>
-      <h1>Byblos</h1>
-      <div>
-        <button onClick={() => setActiveSearch("title")}>Search by title</button>
-        <button onClick={() => setActiveSearch("author")}>Search by author</button>
-        <button onClick={() => setActiveSearch("year")}>Search by year</button>
-        <button onClick={() => setActiveSearch("subject")}>Search by genre</button>
+    <>
+      <div className="grid grid-cols-1 w-full max-w-3xl h-fit px-6 gap-4 justify-items-center items-center mx-auto">
+        <h1 className="text-6xl">BYBLOS</h1>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full justify-center items-center">
+          <Controller
+            name={config.name}
+            control={control}
+            rules={{ required: `${config.name} is required` }}
+            render={({ field, fieldState }) => (
+              <Input
+                value={field.value}
+                name={config.name}
+                className="min-w-[300px] border border-[var(--border-gray-byblos)] rounded-lg h-9 px-3 text-sm"
+                placeholder={config.placeholder}
+                required={true}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                error={fieldState.error?.message}
+              />
+            )}
+          />
+
+          <div className="flex w-fit px-3 py-2 gap-2">
+            <button
+              type="submit"
+              className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+            >
+              Search
+            </button>
+
+            {/* Quick search solo está disponible para búsqueda por título */}
+            {activeSearch === "title" && (
+              <button
+                type="button"
+                className="cursor-pointer border border-[var(--border-gray-byblos)] bg-red-300 rounded-lg min-w-[120px] px-4 py-0.5 text-sm"
+                onClick={() => {
+                  handleSubmit((data) => {
+                    fetchFirstBookByTitle(data.title);
+                    navigate("/books/results/book");
+                  })();
+                }}
+              >
+                Quick search
+              </button>
+            )}
+          </div>
+        </form>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Controller
-          name={config.name}
-          control={control}
-          rules={{ required: `${config.name} is required` }}
-          render={({ field, fieldState }) => (
-            <Input
-              label={config.label}
-              value={field.value}
-              name={config.name}
-              placeholder={config.placeholder}
-              required={true}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
-            />
-          )}
-        />
-        <button type="submit">Search</button>
-        {activeSearch === "title" && (
+
+      {/* Botones de tipo de búsqueda */}
+      <div className="grid grid-cols-[140px_140px] gap-3 w-fit mx-auto mt-2">
           <button
-            type="button"
-            onClick={() => {
-              handleSubmit((data) => {
-                fetchFirstBookByTitle(data.title);
-                navigate("/books/results/book");
-              })();
-            }}
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("title")}
           >
-            Quick search
+            Search by title
           </button>
-        )}
-      </form>
-    </div>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("author")}
+          >
+            Search by author
+          </button>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg not-[]:px-4 py-0.5"
+            onClick={() => setActiveSearch("year")}
+          >
+            Search by publish year
+          </button>
+          <button
+            className="text-xs cursor-pointer border border-[var(--border-gray-byblos)] rounded-lg px-4 py-0.5"
+            onClick={() => setActiveSearch("subject")}
+          >
+            Search by genre
+          </button>
+        </div>
+    </>
   );
 };

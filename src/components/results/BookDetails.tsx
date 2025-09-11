@@ -30,32 +30,30 @@ export const BookDetails = () => {
 
   return (
     <div className="w-full h-full flex flex-col items-start pt-0 xs:pt-4">
-      {/* Botón volver arriba a la izquierda */}
+      {/* Botón de volver */}
       <button onClick={handleBack} className="self-start flex items-center gap-1 text-sm font-medium">
         <ArrowLeft className="w-5 h-5" /> Back to results
       </button>
 
       <div>
         <h2 className="mx-auto text-center text-2xl pt-4">Book details</h2>
-        {/* Contenedor principal */}
+
+        {/* Libro */}
         <div
           key={selectedBook.book_details.key}
           className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-6 items-center p-6 rounded-lg mt-6 border border-[var(--border-gray-byblos)]"
         >
-          {/* Imagen */}
           <img
             src={selectedBook.cover_image}
             alt={selectedBook.book_details.title}
             className="w-40 h-auto object-contain mx-auto sm:mx-0"
           />
-
-          {/* Info */}
           <div className="flex flex-col gap-2 items-center sm:items-start">
-            <h1 className="text-xl font-bold">{selectedBook.book_details.title}</h1>
+            <h2 className="text-xl font-bold text-center">{selectedBook.book_details.title}</h2>
             <p className="text-sm">{selectedBook.book_details.author_name}</p>
             <p className="text-sm">{selectedBook.book_details.first_publish_year}</p>
 
-            {/* Botones de favorito y más info*/}
+            {/* Botones de favorito y más info */}
             <div className="flex flex-col sm:flex-row gap-2 mt-2">
               <button
                 onClick={() => handleSaveAsFavorite(selectedBook)}

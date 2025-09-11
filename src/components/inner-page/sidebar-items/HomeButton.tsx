@@ -5,7 +5,7 @@ export const HomeButton = () => {
     <NavLink
       to="/search"
       className={({ isActive }) =>
-        `flex flex-col w-fit xs:flex-row items-center gap-1 py-2 xs:mt-3 px-2 rounded-lg ${
+        `flex flex-col w-fit xs:flex-row items-center gap-1 pb-1 xs:mt-3 px-2 rounded-lg ${
           isActive ? "bg-white text-red-500 font-bold" : "text-gray-900 hover:bg-amber-200"
         }`
       }

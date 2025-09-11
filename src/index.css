@@ -10,7 +10,7 @@
   --breakpoint-xs: 450px;
 
   --animate-slide-in: slideInDownwards 0.5s ease-in-out forwards;
-  --animate-slide-out: slideOutUpwards 0.5s ease-in-out forwards;
+  --animate-slide-in-rtol: slideInLeftToRight 0.5s ease-in-out forwards;
 
   @keyframes slideInDownwards {
     0% {
@@ -18,6 +18,17 @@
       opacity: 0;
     }
     70% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInLeftToRight {
+    0% {
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+    20% {
       transform: translateX(0);
       opacity: 1;
     }

@@ -103,6 +103,8 @@ export const SearchBar = () => {
                 />
               )}
             />
+
+            {/* Botones de Search y Quick search */}
             <div className="flex w-fit px-3 py-2 gap-2">
               <button
                 type="submit"
@@ -129,6 +131,7 @@ export const SearchBar = () => {
             </div>
           </form>
         </div>
+        
         {/* Botones para abrir diferentes búsquedas */}
         <div className="grid grid-cols-[140px_140px] gap-3">
           <button

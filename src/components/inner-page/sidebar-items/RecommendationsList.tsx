@@ -56,7 +56,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
           >
             Search
           </button>
@@ -90,7 +90,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
           >
             Search
           </button>
@@ -124,7 +124,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
           >
             Search
           </button>

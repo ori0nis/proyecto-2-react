@@ -51,15 +51,16 @@ export const ResultList = () => {
         className={
           listView
             ? "flex flex-col gap-4 p-1"
-            : "grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 p-1"
+            : "grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-1"
         }
       >
         {visibleBooks.map((book) => (
           <div
             key={book.book_details.key}
             className={`flex flex-col items-center gap-2 text-center cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out
-  ${listView ? "flex-row items-center gap-4" : ""}`}
+            ${listView ? "flex-row items-center gap-4" : ""}`}
           >
+            
             {/* Libro */}
             <div
               onClick={() => {
@@ -79,15 +80,21 @@ export const ResultList = () => {
                 alt={book.book_details.title}
                 className={listView ? "w-24 h-32 object-contain" : "w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"}
               />
-              <div className="text-white">
+              <div>
                 <h3
-                  className={listView ? "text-sm font-semibold text-gray-900" : "text-lg font-semibold text-gray-900"}
+                  className={
+                    listView
+                      ? "text-sm font-semibold text-gray-900"
+                      : "mx-auto text-lg font-semibold text-gray-900 max-w-[19ch] break-words text-center"
+                  }
                 >
                   {book.book_details.title}
                 </h3>
                 <p
                   className={
-                    listView ? "text-xs text-[var(--border-gray-byblos)]" : "text-sm text-[var(--border-gray-byblos)]"
+                    listView
+                      ? "text-xs text-[var(--border-gray-byblos)]"
+                      : "mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center"
                   }
                 >
                   {book.book_details.author_name.slice(0, 5).join(", ")}
@@ -103,7 +110,13 @@ export const ResultList = () => {
 
               {/* Botón de favorito dentro del borde en vista lista */}
               {listView && (
-                <button onClick={() => handleSaveAsFavorite(book)} className="cursor-pointer text-xs p-1">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSaveAsFavorite(book);
+                  }}
+                  className="cursor-pointer text-xs p-1"
+                >
                   {favorites.some((fav) => fav.book_details.key === book.book_details.key) ? (
                     <svg width="28" height="28" aria-hidden="true" className="text-red-500">
                       <use href="/assets/spritesheet.svg#icon-heart-filled"></use>
@@ -142,7 +155,7 @@ export const ResultList = () => {
         {canShowMore && (
           <button
             onClick={handleShowMore}
-            className="cursor-pointer text-center p-2 mt-2 border border-[var(--border-gray-byblos)] rounded-lg"
+            className="cursor-pointer text-center p-2 mt-2 mb-8 border border-[var(--border-gray-byblos)] rounded-lg"
           >
             Show more books
           </button>
@@ -151,7 +164,7 @@ export const ResultList = () => {
         {canFetchMore && (
           <button
             onClick={handleFetchMore}
-            className="cursor-pointer text-center p-2 mt-2 border border-[var(--border-gray-byblos)] rounded-lg"
+            className="cursor-pointer text-center p-2 mt-2 mb-8 border border-[var(--border-gray-byblos)] rounded-lg"
           >
             Fetch more books
           </button>

@@ -16,10 +16,10 @@ export const SingleResult = () => {
   if (!book) return <p>No books found</p>;
 
   return (
-    <>
+    <div className="h-full pb-70 xs:pb-0 xs:h-auto">
       <div
         key={book.book_details.key}
-        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
+        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out w-fit mx-auto sm:m-0"
         onClick={() => {
           setSelectedBook(book);
           setClickFromResultList(false);
@@ -27,19 +27,19 @@ export const SingleResult = () => {
           navigate("/books/results/book-detail");
         }}
       >
-        <div className="flex flex-col items-center gap-4 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg">
+        <div className="flex flex-col items-center gap-1 p-2 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg">
           <img
             src={book.cover_image}
             alt={book.book_details.title}
             className="w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"
           ></img>
-          <h2>{book.book_details.title}</h2>
-          <p>{book.book_details.author_name.slice(0, 5).join(", ")}</p>
-          <p>{book.book_details.first_publish_year}</p>
+          <h3 className="mx-auto text-lg font-semibold text-gray-900 max-w-[19ch] break-words text-center">{book.book_details.title}</h3>
+          <p className="mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center">{book.book_details.author_name.slice(0, 5).join(", ")}</p>
+          <p className="text-sm text-[var(--border-gray-byblos)]">{book.book_details.first_publish_year}</p>
         </div>
 
         {/* Botón de favorito */}
-        <div className="mt-2">
+        <div>
           <button
             onClick={(e) => {
               e.stopPropagation();
@@ -59,6 +59,6 @@ export const SingleResult = () => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };

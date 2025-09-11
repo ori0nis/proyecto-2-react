@@ -10,7 +10,7 @@ export const FavoritesButton = () => {
       to="/books/results/favorites"
       onClick={() => setPreviousRoute(location.pathname)}
       className={({ isActive }) =>
-        `flex flex-col w-fit xs:flex-row items-center gap-1 py-2 px-2 rounded-lg ${
+        `flex flex-col w-fit xs:flex-row items-center gap-1 py-1 px-2 rounded-lg ${
           isActive ? "xs:bg-amber-200 text-gray-900 font-bold" : "text-gray-900 hover:bg-amber-200"
         }`
       }

@@ -49,96 +49,104 @@ export const InnerAdvancedSearchForm = () => {
   };
 
   return (
-    <div>
+    <div className="flex justify-center w-fit">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Title */}
-        <Controller
-          name="title"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Input
-              label="Title: "
-              value={field.value}
+        <div className="grid grid-cols-[1fr_1fr] gap-2 p-3 rounded-lg border border-[var(--border-gray-byblos)]">
+          {/* Columna izquierda: Title, Author, Year */}
+          <div className="flex flex-col gap-2">
+            <Controller
               name="title"
-              placeholder="Example: The Hobbit"
-              required={false}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  label="Title: "
+                  value={field.value}
+                  name="title"
+                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+                  placeholder="Example: The Hobbit"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
-          )}
-        />
-
-        {/* Author */}
-        <Controller
-          name="author"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Input
-              label="Author: "
-              value={field.value}
+            <Controller
               name="author"
-              placeholder="Example: J.R.R Tolkien"
-              required={false}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  label="Author: "
+                  value={field.value}
+                  name="author"
+                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+                  placeholder="Example: J.R.R Tolkien"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
-          )}
-        />
-
-        {/* Year */}
-        <Controller
-          name="year"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Input
-              label="Year: "
-              value={field.value}
+            <Controller
               name="year"
-              required={false}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  label="Year: "
+                  value={field.value}
+                  name="year"
+                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
-          )}
-        />
+          </div>
 
-        {/* Subject */}
-        <Controller
-          name="subject"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Input
-              label="Genre: "
-              value={field.value}
+          {/* Columna derecha: Subject, Language */}
+          <div className="flex flex-col gap-2">
+            <Controller
               name="subject"
-              required={false}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  label="Genre: "
+                  value={field.value}
+                  name="subject"
+                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
-          )}
-        />
-
-        {/* Language */}
-        <Controller
-          name="language"
-          control={control}
-          render={({ field, fieldState }) => (
-            <Input
-              label="Language: "
-              value={field.value}
+            <Controller
               name="language"
-              required={false}
-              onChange={field.onChange}
-              onBlur={field.onBlur}
-              error={fieldState.error?.message}
+              control={control}
+              render={({ field, fieldState }) => (
+                <Input
+                  label="Language: "
+                  value={field.value}
+                  name="language"
+                  className="w-full px-2 border border-[var(--border-gray-byblos)] rounded-lg h-5 text-xs"
+                  onChange={field.onChange}
+                  onBlur={field.onBlur}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
-          )}
-        />
+          </div>
+        </div>
 
-        <button type="submit">Search</button>
+        {/* Submit */}
+        <div className="col-span-2 flex justify-center pt-2">
+          <button
+            type="submit"
+            className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
+          >
+            Search
+          </button>
+        </div>
       </form>
     </div>
   );
