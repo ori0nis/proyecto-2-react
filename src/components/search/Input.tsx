@@ -12,7 +12,7 @@ interface Props {
 
 export const Input = ({ label, value, name, className, placeholder, required, error, onChange, onBlur }: Props) => {
   return (
-    <div className="w-full py-1">
+    <div className="w-full ">
       <label className="text-sm" htmlFor={name}>{label}</label>
       <input
         className={className}

@@ -11,7 +11,7 @@ export const ByblosLayout = () => {
   return (
     <div className="grid sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr] h-screen bg-[var(--background-color-byblos)]">
       {/* Search bars internas */}
-      <div className="hidden xs:flex col-span-2 flex-col items-center justify-center text-center w-full p-2">
+      <div className="hidden xs:flex col-span-2 flex-col items-center justify-center text-center w-full p-2 border-b border-[var(--border-gray-byblos)]">
         {/* Contenedor que pasa a grid cuando se muestra advanced */}
         <div
           className={`w-fit grid gap-6 transition-all duration-500 ${
@@ -55,8 +55,7 @@ export const ByblosLayout = () => {
       <Sidebar />
 
       {/* Outlet */}
-      <div className="overflow-y-auto p-2">
-        <hr className="xs:block hidden border-t border-gray-400 pb-3" />
+      <div className="overflow-y-auto p-4">
         <Outlet />
       </div>
     </div>
