@@ -11,9 +11,24 @@ export const SingleResult = () => {
   const { setClickFromResultList, setClickFromFavorites } = useNavigation();
   const navigate = useNavigate();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error fetching books</p>;
-  if (!book) return <p>No books found</p>;
+  if (loading)
+    return (
+      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+        <p>Loading results...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+        <p>Error fetching books</p>
+      </div>
+    );
+  if (!book)
+    return (
+      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+        <p>No books found</p>
+      </div>
+    );
 
   return (
     <div className="h-full pb-70 xs:pb-0 xs:h-auto">
@@ -33,8 +48,12 @@ export const SingleResult = () => {
             alt={book.book_details.title}
             className="w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"
           ></img>
-          <h3 className="mx-auto text-lg font-semibold text-gray-900 max-w-[19ch] break-words text-center">{book.book_details.title}</h3>
-          <p className="mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center">{book.book_details.author_name.slice(0, 5).join(", ")}</p>
+          <h3 className="mx-auto text-lg font-semibold text-gray-900 max-w-[19ch] break-words text-center">
+            {book.book_details.title}
+          </h3>
+          <p className="mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center">
+            {book.book_details.author_name.slice(0, 5).join(", ")}
+          </p>
           <p className="text-sm text-[var(--border-gray-byblos)]">{book.book_details.first_publish_year}</p>
         </div>
 

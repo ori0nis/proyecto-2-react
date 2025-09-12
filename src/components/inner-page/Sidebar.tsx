@@ -45,7 +45,7 @@ export const Sidebar = () => {
     <div className="xs:w-[200px] h-fit py-1 px-4 rounded-lg flex flex-col gap-1 xs:gap-0">
       {/* Título de menú */}
       <h2 className="hidden xs:block text-xl font-semibold cursor-default">MENU</h2>
-      <hr className="xs:block hidden border-t border-gray-400" />
+      <hr className="xs:block hidden border-t border-gray-400 mb-[-3px]" />
 
       {/* Logo de Byblos */}
       <div className="mx-auto xs:hidden transform scale-75 mt-2">
