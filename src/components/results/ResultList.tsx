@@ -20,7 +20,11 @@ export const ResultList = () => {
 
   const handleShowMore = () => setShownBooks((prev) => prev + BOOKS_PER_PAGE);
 
-  if (loading) return <p>Loading results...</p>;
+  if (loading) return (
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
+        <p>Loading results...</p>
+      </div>
+    );;
   if (error) return <p>Error fetching books</p>;
   if (bookList.length === 0) return <p>No books found</p>;
 
