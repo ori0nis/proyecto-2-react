@@ -1,1 +1,0 @@
-- Manage error when user's query doesn't return any results (either put spinner in the middle so that error gets returned in the main page, or allow through to the inner component and display error there)
