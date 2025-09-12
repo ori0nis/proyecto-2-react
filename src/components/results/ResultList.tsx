@@ -24,9 +24,17 @@ export const ResultList = () => {
       <div className="h-full pb-150 xs:pb-0 xs:h-auto">
         <p>Loading results...</p>
       </div>
-    );;
-  if (error) return <p>Error fetching books</p>;
-  if (bookList.length === 0) return <p>No books found</p>;
+    );
+  if (error) return (
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
+        <p>Error fetching books</p>
+      </div>
+    );
+  if (bookList.length === 0) return (
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
+        <p>No books found</p>
+      </div>
+    );
 
   return (
     <>

@@ -11,7 +11,6 @@ export const getBooksByTitle = async (title: string, page: number = 1): Promise<
   // Encodeamos para que la query sea del formato adecuado
   const query = encodeURIComponent(title);
 
-  // Página 1
   const res = await axios.get(`https://openlibrary.org/search.json?title=${query}&page=${page}`);
   // Transformamos de OpenLibraryDoc a Book
   return res.data.docs.map((docs: OpenLibraryDoc) => mapDocsToBooks(docs));
