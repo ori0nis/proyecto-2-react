@@ -9,12 +9,12 @@ export const ByblosLayout = () => {
   const toggleAdvancedSearch = () => setShowAdvancedSearch((prev) => !prev);
 
   return (
-    <div className="grid xs:grid-cols-[auto_1fr] min-h-screen xs:min-h-screen bg-[var(--background-color-byblos)]">
+    <div className="grid xs:grid-cols-[auto_1fr] xs:h-screen bg-[var(--background-color-byblos)]">
       {/* Sidebar */}
       <Sidebar />
 
       {/* Columna derecha (header + libros) */}
-      <div className="grid grid-rows-[auto_1fr]">
+      <div className="grid grid-rows-[auto_1fr] xs:h-screen">
         {/* Header con InnerSearchBar y toggle */}
         <div className="hidden xs:flex xs:flex-col items-center justify-center text-center w-full p-2 border-b border-[var(--border-gray-byblos)]">
           <div
@@ -27,19 +27,17 @@ export const ByblosLayout = () => {
               <InnerSearchBar />
 
               {/* Toggle para el modal */}
-              <div className="pt-4 text-center">
-                    <button className="cursor-pointer border border-[var(--border-gray-byblos)] bg-blue-300 rounded-lg px-4 py-1 my-1 text-xs" onClick={toggleAdvancedSearch}>
-                      Show advanced search
-                    </button>
-              </div>
+              <button
+                className="text-center w-fit text-xs mx-auto cursor-pointer border border-[var(--border-gray-byblos)] bg-blue-300 rounded-lg px-4 py-1 mt-3"
+                onClick={toggleAdvancedSearch}
+              >
+                Show advanced search
+              </button>
             </div>
 
             {/* Modal para AdvancedSearch */}
             {showAdvancedSearch && (
-              <InnerAdvancedSearchModal
-                isOpen={showAdvancedSearch}
-                onClose={toggleAdvancedSearch}
-              >
+              <InnerAdvancedSearchModal isOpen={showAdvancedSearch} onClose={toggleAdvancedSearch}>
                 <InnerAdvancedSearchForm />
               </InnerAdvancedSearchModal>
             )}
@@ -47,7 +45,7 @@ export const ByblosLayout = () => {
         </div>
 
         {/* Outlet */}
-        <div className="overflow-y-auto p-4">
+        <div className="xs:overflow-y-auto p-4">
           <Outlet />
         </div>
       </div>

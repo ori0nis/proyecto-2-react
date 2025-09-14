@@ -53,18 +53,15 @@ export const Favorites = () => {
     <div
       className={
         listView
-          ? "flex flex-col gap-2"
+          ? "flex flex-col gap-2 h-screen"
           : "grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-1"
       }
     >
       {favorites.map((favorite) => (
         <div
           key={favorite.book_details.key}
-          className={`flex ${
-            listView
-              ? "flex-row items-center justify-between gap-4 text-center"
-              : "flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
-          } `}
+          className={`flex flex-col items-center gap-2 text-center 
+            ${listView ? "flex-row items-center gap-4" : ""}`}
         >
 
           {/* Contenedor con borde */}
@@ -76,7 +73,7 @@ export const Favorites = () => {
             className={
               listView
                 ? "flex flex-row items-center gap-4 flex-1 justify-between border border-[var(--border-gray-byblos)] rounded-lg p-2"
-                : "flex flex-col items-center gap-0.5 border border-[var(--border-gray-byblos)] rounded-lg p-2"
+                : "flex flex-col items-center gap-0.5 border border-[var(--border-gray-byblos)] rounded-lg p-2 cursor-pointer hover:scale-105 transition-transform duration-300 ease-in-out"
             }
           >
             <img
@@ -88,7 +85,7 @@ export const Favorites = () => {
                   : "w-40 h-50 xs:w-50 xs:h-62 object-contain mx-auto"
               }
             />
-            <div className="flex flex-col gap-1">
+            <div>
               <h3
                 className={
                   listView ? "text-sm font-semibold text-gray-900" : "mx-auto text-lg font-semibold text-gray-900 max-w-[19ch] break-words text-center"

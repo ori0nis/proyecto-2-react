@@ -31,7 +31,7 @@ export const SingleResult = () => {
     );
 
   return (
-    <div className="h-full pb-70 xs:pb-0 xs:h-auto">
+    <div className="">
       <div
         key={book.book_details.key}
         className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 w-fit mx-auto xs:m-0"

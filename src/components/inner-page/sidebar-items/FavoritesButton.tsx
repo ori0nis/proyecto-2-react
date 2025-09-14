@@ -20,7 +20,7 @@ export const FavoritesButton = () => {
           <svg width="40" height="40" aria-hidden="true" className="text-red-500 xs:w-7 xs:h-7">
             <use href={`/assets/spritesheet.svg#${isActive ? "icon-heart-filled" : "icon-heart-outline"}`}></use>
           </svg>
-          <span className="hidden xs:inline xs:text-lg font-semibold">My favorites</span>
+          <span className="hidden xs:inline xs:text-md font-semibold">My favorites</span>
         </>
       )}
     </NavLink>
