@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { InnerAdvancedSearchForm, InnerSearchBar, Sidebar } from "../../components/inner-page";
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { InnerAdvancedSearchModal } from "../../components/modals";
 
 export const ByblosLayout = () => {
   const [showAdvancedSearch, setShowAdvancedSearch] = useState<boolean>(false);
@@ -9,54 +9,47 @@ export const ByblosLayout = () => {
   const toggleAdvancedSearch = () => setShowAdvancedSearch((prev) => !prev);
 
   return (
-    <div className="grid sm:grid-rows-[auto_1fr] sm:grid-cols-[auto_1fr] h-screen bg-[var(--background-color-byblos)]">
-      {/* Search bars internas */}
-      <div className="hidden xs:flex col-span-2 flex-col items-center justify-center text-center w-full p-2 border-b border-[var(--border-gray-byblos)]">
-        {/* Contenedor que pasa a grid cuando se muestra advanced */}
-        <div
-          className={`w-fit grid gap-6 transition-all duration-500 ${
-            showAdvancedSearch ? "grid-cols-[1fr_auto] items-center" : "grid-cols-1"
-          }`}
-        >
-          {/* Columna izquierda: InnerSearch */}
-          <div className="flex flex-col">
-            <InnerSearchBar />
-
-            {/* Toggle */}
-            <div className="pt-4 text-sm text-center">
-              {showAdvancedSearch ? (
-                <>
-                  <p>Hide advanced search</p>
-                  <button className="cursor-pointer" onClick={toggleAdvancedSearch}>
-                    <ChevronLeft size={16} />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <p>Show advanced search</p>
-                  <button className="cursor-pointer" onClick={toggleAdvancedSearch}>
-                    <ChevronRight size={16} />
-                  </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Columna derecha: InnerAdvancedSearch */}
-          {showAdvancedSearch && (
-            <div className="animate-[slideInLeftToRight_0.5s_ease-in-out_0.1s_both]">
-              <InnerAdvancedSearchForm />
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className="grid xs:grid-cols-[auto_1fr] min-h-screen xs:min-h-screen bg-[var(--background-color-byblos)]">
       {/* Sidebar */}
       <Sidebar />
 
-      {/* Outlet */}
-      <div className="overflow-y-auto p-4">
-        <Outlet />
+      {/* Columna derecha (header + libros) */}
+      <div className="grid grid-rows-[auto_1fr]">
+        {/* Header con InnerSearchBar y toggle */}
+        <div className="hidden xs:flex xs:flex-col items-center justify-center text-center w-full p-2 border-b border-[var(--border-gray-byblos)]">
+          <div
+            className={`w-fit grid gap-6 transition-all duration-500 ${
+              showAdvancedSearch ? "grid-cols-[1fr_auto] items-center" : "grid-cols-1"
+            }`}
+          >
+            {/* InnerSearchBar */}
+            <div className="flex flex-col">
+              <InnerSearchBar />
+
+              {/* Toggle para el modal */}
+              <div className="pt-4 text-center">
+                    <button className="cursor-pointer border border-[var(--border-gray-byblos)] bg-blue-300 rounded-lg px-4 py-1 my-1 text-xs" onClick={toggleAdvancedSearch}>
+                      Show advanced search
+                    </button>
+              </div>
+            </div>
+
+            {/* Modal para AdvancedSearch */}
+            {showAdvancedSearch && (
+              <InnerAdvancedSearchModal
+                isOpen={showAdvancedSearch}
+                onClose={toggleAdvancedSearch}
+              >
+                <InnerAdvancedSearchForm />
+              </InnerAdvancedSearchModal>
+            )}
+          </div>
+        </div>
+
+        {/* Outlet */}
+        <div className="overflow-y-auto p-4">
+          <Outlet />
+        </div>
       </div>
     </div>
   );

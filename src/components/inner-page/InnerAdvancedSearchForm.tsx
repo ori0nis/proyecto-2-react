@@ -49,7 +49,7 @@ export const InnerAdvancedSearchForm = () => {
   };
 
   return (
-    <div className="text-center w-fit">
+    <div className="text-center w-fit mx-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Title */}
         <Controller
@@ -146,7 +146,7 @@ export const InnerAdvancedSearchForm = () => {
         <div className="py-0.5">
           <button
             type="submit"
-            className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-sm"
+            className="cursor-pointer border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 mt-2 text-sm"
           >
             Search
           </button>

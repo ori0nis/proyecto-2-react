@@ -28,11 +28,11 @@ export const RecommendationsList = ({
   handleSubmit,
 }: RecommendationsListProps) => {
   return (
-    <div className="w-full flex flex-col gap-2 items-center animate-[slideInDownwards_0.5s_ease-in-out_0.1s_both]">
+    <div className="w-full flex flex-col gap-2 items-center justify-center animate-[slideInDownwards_0.5s_ease-in-out_0.1s_both]">
       {/* By author */}
       <NavLink
         to="#"
-        className="cursor-pointer text-xs font-semibold border border-[var(--border-gray-byblos)] rounded-lg p-1 hover:bg-amber-200 px-2"
+        className="cursor-pointer text-xs font-semibold border border-[var(--border-gray-byblos)] rounded-lg hover:bg-amber-200 p-1 px-2"
         onClick={toggleAuthor}
       >
         By author
@@ -56,7 +56,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-1 mb-4 text-xs"
           >
             Search
           </button>
@@ -90,7 +90,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-1 mb-4 text-xs"
           >
             Search
           </button>
@@ -124,7 +124,7 @@ export const RecommendationsList = ({
           />
           <button
             type="submit"
-            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-0.5 text-xs"
+            className="cursor-pointer mx-auto border border-[var(--border-gray-byblos)] bg-green-300 rounded-lg px-4 py-1 text-xs"
           >
             Search
           </button>

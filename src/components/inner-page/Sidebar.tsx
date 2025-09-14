@@ -41,11 +41,10 @@ export const Sidebar = () => {
   };
 
   return (
-    /* Títulos, dependiendo de la vista */
-    <div className="xs:w-[200px] h-fit py-1 px-4 rounded-lg flex flex-col gap-1 xs:gap-0">
+    <div className="xs:w-[200px] xs:pl-5 xs:mt-4 xs:h-full w-full h-fit py-1 px-4 rounded-lg flex flex-col gap-1 xs:gap-0">
       {/* Título de menú */}
-      <h2 className="hidden xs:block text-xl font-semibold cursor-default">MENU</h2>
-      <hr className="xs:block hidden border-t border-gray-400 mb-[-3px]" />
+      <h2 className="hidden xs:block text-3xl font-semibold cursor-default xs:mb-5">MENU</h2>
+      <hr className="xs:block hidden border-t border-gray-400 xs:mb-[-3px]" />
 
       {/* Logo de Byblos */}
       <div className="mx-auto xs:hidden transform scale-75 mt-2">
@@ -53,7 +52,7 @@ export const Sidebar = () => {
       </div>
 
       {/* Botones */}
-      <div className="flex xs:flex-col flex-row gap-2 justify-center xs:items-start items-center mb-1">
+      <div className="flex xs:flex-col flex-row gap-2 justify-center xs:items-start items-center xs:mb-1">
         <HomeButton />
         <hr className="hidden xs:block border-t border-gray-400 flex-1 h-px w-full border-l-0" />
         <FavoritesButton />

@@ -63,8 +63,8 @@ export const Favorites = () => {
           className={`flex ${
             listView
               ? "flex-row items-center justify-between gap-4 text-center"
-              : "flex-col items-center gap-0.5 text-center"
-          } cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out`}
+              : "flex-col items-center gap-0.5 text-center cursor-pointer p-2 hover:scale-105 transition-transform duration-300 ease-in-out"
+          } `}
         >
 
           {/* Contenedor con borde */}
@@ -98,7 +98,7 @@ export const Favorites = () => {
               </h3>
               <p
                 className={
-                  listView ? "text-xs text-[var(--border-gray-byblos)]" : "mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center"
+                  listView ? "text-xs text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center" : "mx-auto text-sm text-[var(--border-gray-byblos)] max-w-[22ch] break-words text-center"
                 }
               >
                 {favorite.book_details.author_name.slice(0, 5).join(", ")}
