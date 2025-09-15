@@ -53,7 +53,7 @@ export const Favorites = () => {
     <div
       className={
         listView
-          ? "flex flex-col gap-2 h-screen"
+          ? "flex flex-col gap-2"
           : "grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 p-1"
       }
     >
