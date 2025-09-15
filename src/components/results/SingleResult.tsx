@@ -13,28 +13,28 @@ export const SingleResult = () => {
 
   if (loading)
     return (
-      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
         <p>Loading results...</p>
       </div>
     );
   if (error)
     return (
-      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
         <p>Error fetching books</p>
       </div>
     );
   if (!book)
     return (
-      <div className="h-full pb-120 xs:pb-0 xs:h-auto">
+      <div className="h-full pb-150 xs:pb-0 xs:h-auto">
         <p>No books found</p>
       </div>
     );
 
   return (
-    <div className="h-full pb-70 xs:pb-0 xs:h-auto">
+    <div className="">
       <div
         key={book.book_details.key}
-        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2  w-fit mx-auto sm:m-0"
+        className="flex flex-col items-center gap-0.5 text-center cursor-pointer p-2 w-fit mx-auto xs:m-0"
         onClick={() => {
           setSelectedBook(book);
           setClickFromResultList(false);
